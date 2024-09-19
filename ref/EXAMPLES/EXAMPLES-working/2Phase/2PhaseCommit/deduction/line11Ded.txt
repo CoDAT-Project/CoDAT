@@ -1,0 +1,25 @@
+n=3:
+
+
+
+AG(!cm0 | ! ab0) & AG(cm0 => AG(cm0)) & AG(!cm1 | ! ab1) & AG(cm1 => AG(cm1)) & AG(!cm2 | ! ab2) & AG(cm2 => AG(cm2)) & //7
+(cm1 --> A(sb2 U (sb2 & (cm1 | ab1))))     //10
+=>
+(cm1 --> A(sb2 U (sb2 & cm1 ))) 
+
+
+
+
+AG(!cm0 | ! ab0) & AG(cm0 => AG(cm0)) & AG(!cm1 | ! ab1) & AG(cm1 => AG(cm1)) & AG(!cm2 | ! ab2) & AG(cm2 => AG(cm2)) & 
+A(  (cm1 => AF( A(sb2 U (sb2 & (cm1 | ab1))) ))  W A(sb2 U (sb2 & (cm1 | ab1))) )  
+=>
+A(  (cm1 => AF( A(sb2 U (sb2 & cm1)) ))  W A(sb2 U (sb2 & cm1 )) )  
+
+
+
+PROOF DECOMPOSITION
+
+AG(cm1 => AG(cm1)) & 
+A(  (cm1 => AF( A(sb2 U (sb2 & (cm1 | ab1))) ))  W A(sb2 U (sb2 & (cm1 | ab1))) )  
+=>
+A(  (cm1 => AF( A(sb2 U (sb2 & cm1)) ))  W A(sb2 U (sb2 & cm1 )) )  

@@ -1,0 +1,4 @@
+PetBoolV2.txt has a deadlock state
+
+PetSh.txt: does not satisfy EG(N1). In particular, in state S1, P1
+          should be able to enter C1, and the needed transition is missing

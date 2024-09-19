@@ -1,0 +1,4 @@
+
+( (cm0 & sb1) leadsTo (cm1 & sb2) ) &
+( (cm1 & sb2) leadsTo (cm2 & sb3) )
+

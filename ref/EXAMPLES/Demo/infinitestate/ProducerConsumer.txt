@@ -1,0 +1,37 @@
+program  {
+	initial   : A1 & A2 & (x=0) & !B1 & !B2
+	process  1 {
+		action   {
+			l_grd : A1
+			g_grd : (x<3) 
+			l_eff : { A1 :=ff; B1 :=tt;  }
+			g_eff : { }
+		 }
+
+		 action   {
+			l_grd : B1  
+			g_grd : true
+			l_eff : { A1 :=tt ; B1 := ff;  }
+			g_eff :{  x := x + 1; }
+		 }
+		 
+	 }
+	process  2 {
+		 	
+		 	action   {
+			l_grd : A2
+			g_grd : (x>0) 
+			l_eff : { B2 := tt ; A2 := ff;  }
+			g_eff : { } 
+		 }
+
+		 action   {
+			l_grd : B2
+			g_grd : true
+			l_eff : {  B2 := ff ; A2 := tt;    }
+			g_eff : {x := x - 1; }
+		 }
+		 
+	 }
+	 
+}

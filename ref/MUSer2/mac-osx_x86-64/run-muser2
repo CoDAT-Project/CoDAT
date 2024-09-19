@@ -1,0 +1,9 @@
+# Shell script to run MUSer2 
+
+# Set this to point to the install directory
+MUSER2_ROOT=.
+ 
+${MUSER2_ROOT}/muser2 $*
+
+
+

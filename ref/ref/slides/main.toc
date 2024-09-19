@@ -1,0 +1,9 @@
+\beamer@endinputifotherversion {3.26pt}
+\select@language {french}
+\beamer@sectionintoc {1}{Why Formal Verification ?}{3}{0}{1}
+\beamer@sectionintoc {2}{Preliminaries}{4}{0}{2}
+\beamer@sectionintoc {3}{Defining the Problem: Model Repair}{8}{0}{3}
+\beamer@sectionintoc {4}{Our Work}{11}{0}{4}
+\beamer@sectionintoc {5}{Technical Details}{14}{0}{5}
+\beamer@sectionintoc {6}{Future Work}{18}{0}{6}
+\beamer@sectionintoc {7}{Conclusion}{20}{0}{7}

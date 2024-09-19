@@ -1,0 +1,61 @@
+<html>
+<head>
+	<title>Eshmun: User Manual</title>
+</head>
+<body>
+    <table width="750px">
+    <tr>
+    <td valign="top" width="200px" style="padding-left: 20px; padding-top: 30px; border-right: solid 1px;">
+        <h2>Navigation</h2>
+        <p>
+        <a href="graph.html">Manipulate Structure</a> <br/><br/>
+        <a href="concurrent.html">Concurrent Kripke Structure</a> <br/><br/>
+        <a href="skeletons.html">Synchronization Skeletons</a> <br/><br/>
+        <a href="io.html">Saving and Loading</a> <br/><br/>
+        <a href="export.html">Exporting</a> <br/><br/>
+        <a href="zoom.html">Search and Zoom</a> <br/><br/>
+        <a href="logic.html">Logic and Syntax</a> <br/><br/>
+        <a href="check.html">Model Check</a> <br/><br/>
+        <a href="repair.html">Model Repair</a> <br/><br/>
+        <a href="abstraction.html">Abstractions</a> <br/><br/>
+        <a href="coloring.html">Transition Coloring</a> <br/><br/>
+        <a href="script.html">Scripting</a> <br/><br/>
+        <a href="refinement.html">Refinement</a> <br/><br/>
+        <a href="unsat.html">Unsat Core</a> <br/><br/>
+        <!-- Add Section -->
+        </p>
+    </td>
+    <td valign="top" style="padding-left: 50px; padding-top: 30px;">
+        <h2>Unsat Core</h2>
+
+        <p>
+        Eshmun has the option to use a Minimal Unsat Core Extractor, in particular <a href="http://logos.ucd.ie/web/doku.php?id=muser">MUSer2</a>. 
+        </p> <br/>
+        
+        <p>
+        Eshmun will use the minimal unsat core, to pick a small subset of states/transitions that is making a model un-repairable against some 
+        specifications. This small subset captures the conflicts Eshmun is facing when attempting to repair the model. It is worth noting that
+        this subset is not the actual minimum in terms of states/transitions, since MUSer2 works on the repair formula which contains extra internal
+        variables.
+        </p> <br/>
+        
+        <p>
+        The Minimal Unsat Core feature can provide users with important semantic feedback, and allow them to intervene in how the repair is 
+        conducted, and get insight as to which parts of the model requires modification for the repair to become valid.
+        </p> <br/>
+        
+        <p>To use the feature, you will MUSer2 as working binaries, which you can download from <a href="http://logos.ucd.ie/web/doku.php?id=muser">
+        here</a> (http://logos.ucd.ie/web/doku.php?id=muser).</p> <br/>
+        
+        <p>By default, Eshmun will look for MUSer2 in a directory named "MUS". The MUS directory must be placed immediately next to Eshmun for
+        auto detection, make sure the "MUS" directory contains the binaries immediately (especially 'run-muser2'), and that they are not nested
+        inside it. Also, make sure you have read, write, and execute permissions to that directory and binaries.</p> <br/>
+        
+        <p>If MUSer2 was not found in the default location, Eshmun will prompt to manually enter the location. Make sure to browse to the
+        directory containing the binaries directly. The new location will be saved for this session, and Eshmun will not ask for it again 
+        until you exist.</p> <br/>       
+    </td>
+    </tr>
+    </table>
+</body>
+</html>

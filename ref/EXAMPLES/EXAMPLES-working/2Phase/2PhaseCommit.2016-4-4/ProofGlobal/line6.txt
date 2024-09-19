@@ -1,0 +1,31 @@
+Pair-property
+
+no process both commits and aborts
+
+==============================================
+
+n=4:
+
+AG(!cm0 | ! ab0) &
+AG(!cm1 | ! ab1) &
+AG(!cm2 | ! ab2) &
+AG(!cm3 | ! ab3) 
+
+
+===========================================
+
+n=3:
+
+AG(!cm0 | ! ab0) &
+AG(!cm1 | ! ab1) &
+AG(!cm2 | ! ab2)
+
+
+++++++++++++++++++++++++++++++++++++++++
+
+Eshmun model checked in P4 || P0, P0 || P1, and P1 || P2
+
+
+
+
+

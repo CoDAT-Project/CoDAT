@@ -1,0 +1,18 @@
+
+n=3:
+
+
+((cm0 --> (sb1 & sb2)) & (cm1 --> cm0) & (cm2 --> cm1)) =>
+(cm0 --> (sb1 & sb2)) & (cm1 --> (sb1 & sb2)) & (cm2 --> (sb1 & sb2))
+
+
+
+
+( A( (cm0 => AF(sb1 & sb2 )) W (sb1 & sb2 ) ) &
+A( (cm1 => AF(cm0)) W cm0 ) & A( (cm2 => AF(cm1)) W cm1 ) )
+=>
+(
+A( (cm0 => AF(sb1 & sb2)) W (sb1 & sb2) ) & 
+A( (cm1 => AF(sb1 & sb2)) W (sb1 & sb2) ) & 
+A( (cm2 => AF(sb1 & sb2)) W (sb1 & sb2) ) 
+)

@@ -1,0 +1,39 @@
+program  {
+	initial   : (One1 & One2 & (x=0))
+	process  1 {
+		action   {
+			l_grd : One1
+			g_grd : (x<5) 
+			l_eff : { One1 :=ff; Two1 :=tt;  }
+			g_eff : { }
+		 }
+
+		 action   {
+			l_grd : Two1
+			g_grd : One2 | Two2 
+			l_eff : { One1 :=tt ; Two1 := ff; }
+			g_eff : { x := x+1; }
+		 }
+
+		  
+		 
+	 }
+	process  2 {
+		 	
+		 	action   {
+			l_grd : One2
+			g_grd : (x>0) 
+			l_eff : { Two2 := tt ; One1 := ff;  }
+			g_eff : { }
+		 }
+
+		 action   {
+			l_grd : Two2
+			g_grd : One1 | Two1 
+			l_eff : {  Two2 := ff ; One1 := tt;  }
+			g_eff : { x := x-1; }
+		 }
+		 
+	 }
+	 
+}

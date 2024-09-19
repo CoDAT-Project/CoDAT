@@ -1,0 +1,13 @@
+/BaseEvent.class
+/BranchingEvent.class
+/ChState.class
+/ChoreographyEvent.class
+/ChoreographyRepresentation.class
+/EventHelper.class
+/LoopEvent.class
+/ParallelEvent.class
+/Process.class
+/ProcessEvent.class
+/ReadFile.class
+/StateHelper.class
+/StatesAndEnd.class

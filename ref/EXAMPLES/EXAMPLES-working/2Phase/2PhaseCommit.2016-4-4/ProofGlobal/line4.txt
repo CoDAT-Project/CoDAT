@@ -1,0 +1,23 @@
+Pair-property
+
+$P_i$ commits only if $P_{i-1}$ commits
+
+================================================
+
+n=4:
+
+(cm1 --> cm0) & (cm2 --> cm1) & (cm3 --> cm2)
+
+A( (cm1 => AF(cm0)) W cm0 ) & A( (cm2 => AF(cm1)) W cm1 ) & A( (cm3 => AF(cm2)) W cm2 ) 
+
+=========================================================
+
+n=3:
+
+(cm1 --> cm0) & (cm2 --> cm1) 
+
+A( (cm1 => AF(cm0)) W cm0 ) & A( (cm2 => AF(cm1)) W cm1 ) 
+
+++++++++++++++++++++++++++++++++++++++++
+
+Eshmun model checked in P0 || P1 and P1 || P2

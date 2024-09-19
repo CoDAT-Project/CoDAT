@@ -1,0 +1,21 @@
+<script type="text/javascript">
+var x = document.getElementsByClassName("tr-caption-container");
+for(var i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+}
+
+rand = Math.floor(Math.random() * x.length);
+x[rand].style.display = "inline";
+
+setInterval(function () {
+    x[rand].style.display = "none";
+    tmp = Math.floor(Math.random() * x.length);
+
+    while(tmp == rand) {
+        tmp = Math.floor(Math.random() * x.length);
+    }
+
+    rand = tmp;
+    x[rand].style.display = "inline";
+}, 3000);
+</script>

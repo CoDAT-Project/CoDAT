@@ -1,0 +1,17 @@
+
+
+Documentation of Bakery Model, i=1,2 throughout:
+
+CHi: choosing
+
+SPi: spinning on the wait for condition
+
+CRi: critical
+
+
+
+chi: choose action where Pi sets ni to nj+1, j != i
+
+eni: Pi enters critical section
+
+lvi: Pi leaves critical section

@@ -1,0 +1,69 @@
+program  {
+	initial   : (N1 & N2)
+	sharedvariables   :  x  : {  1, 2 } 
+	process  1 {
+		action   {
+			l_grd : T1 
+			g_grd : (N2) 
+			l_eff : C1,T1 := tt,ff
+			g_eff : x  := null
+		 }
+		action   {
+			l_grd : C1 
+			g_grd : (N2) | (T2) 
+			l_eff : C1,N1 := ff,tt
+			g_eff : x  := null
+		 }
+		action   {
+			l_grd : N1 
+			g_grd : (C2) | (N2) 
+			l_eff : N1,T1 := ff,tt
+			g_eff : x  := null
+		 }
+		action   {
+			l_grd : N1 
+			g_grd : (T2) 
+			l_eff : N1,T1 := ff,tt
+			g_eff : x := 2
+		 }
+		action   {
+			l_grd : T1 
+			g_grd : ((T2) & (x=1)) 
+			l_eff : C1,T1 := tt,ff
+			g_eff : x := null
+		 }
+	 }
+	process  2 {
+		action   {
+			l_grd : N2 
+			g_grd : (C1) | (N1) 
+			l_eff : N2,T2 := ff,tt
+			g_eff : x  := null
+		 }
+		action   {
+			l_grd : T2 
+			g_grd : (N1) 
+			l_eff : C2,T2 := tt,ff
+			g_eff : x  := null
+		 }
+		action   {
+			l_grd : C2 
+			g_grd : (N1) | (T1) 
+			l_eff : C2,N2 := ff,tt
+			g_eff : x  := null
+		 }
+		action   {
+			l_grd : T2 
+			g_grd : ((T1) & (x=2)) 
+			l_eff : C2,T2 := tt,ff
+			g_eff : x := null
+		 }
+		action   {
+			l_grd : N2 
+			g_grd : (T1) 
+			l_eff : N2,T2 := ff,tt
+			g_eff : x := 1
+		 }
+	 }
+	 specifications : { ( AG( !( C1 & C2 ) ) ) & ( AG( T1 => ( AF( C1 ) ) ) ) & ( AG( T2 => ( AF( C2 ) ) ) ) & ( AG( N1 => ( EX_{1}( T1 ) ) ) ) & ( AG( N2 => ( EX_{2}( T2 ) ) ) ) & ( EG( N1 ) ) & ( EG( N2 ) ) }
+}

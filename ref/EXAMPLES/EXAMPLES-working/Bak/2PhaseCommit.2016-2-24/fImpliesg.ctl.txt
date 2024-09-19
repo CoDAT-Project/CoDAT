@@ -1,0 +1,14 @@
+
+
+f --> g: along every path, if f holds at some state, then g holds at
+some state (possibly before f)
+
+written in CTL as:
+
+A( (f => AF(g)) W g)   // where W is weak until
+
+also as
+
+!E[ !g U ( !(f => AFg) & !g )]
+
+by converting the W into a U

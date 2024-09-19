@@ -1,0 +1,18 @@
+n=3:
+
+
+(
+AG( sb1 => A(sb1 U (sb1 & (cm0 | ab0)))) & AG( sb2 => A(sb2 U (sb2 & (cm1 | ab1)))) &
+(cm0 --> sb1) & (cm1 --> sb2) 
+)
+=>
+(cm1 --> A(sb2 U (sb2 & (cm1 | ab1)))) 
+
+
+
+(
+AG( sb1 => A(sb1 U (sb1 & (cm0 | ab0)))) & AG( sb2 => A(sb2 U (sb2 & (cm1 | ab1)))) &
+A( (cm0 => AF(sb1)) W (sb1)) & A( (cm1 => AF(sb2)) W (sb2))
+)
+=>
+A(  (cm1 => AF( A(sb2 U (sb2 & (cm1 | ab1))) ))  W A(sb2 U (sb2 & (cm1 | ab1))) )  

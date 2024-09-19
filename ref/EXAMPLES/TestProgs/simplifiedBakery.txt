@@ -1,0 +1,56 @@
+program  {
+	initial   : N1 & N2 & (t1=0) & (t2=0) & !C2 & !C1 &!T1 & !T2
+	process  1 {
+		action   {
+			l_grd : N1
+			g_grd : N2 | T2 | C2
+			l_eff : { N1 :=ff; T1 :=tt;  t1 := t2 + 1; }
+			g_eff : {}
+		 }
+
+		 action   {
+			l_grd : T1
+			g_grd : (t1 < t2) | N2
+			l_eff : { T1 :=ff; C1 :=tt;  }
+			g_eff : {}
+		 }
+
+
+
+		 action   {
+			l_grd : C1  
+			g_grd : N2 | T2 | C2
+			l_eff : { N1 :=tt ; C1 := ff;  t1 :=  0; }
+			g_eff :{  }
+		 }
+
+		  
+		 
+	 }
+	process  2 {
+
+		action   {
+			l_grd : N2
+			g_grd : N1 | T1 | C1
+			l_eff : { N2 :=ff; T2 :=tt;  t2 := t1 + 1; }
+			g_eff : {}
+		 }
+
+		 action   {
+			l_grd : T2
+			g_grd : (t2 < t1) | N1
+			l_eff : { T2 :=ff; C2 :=tt;  }
+			g_eff : {}
+		 }
+
+
+
+		 action   {
+			l_grd : C2
+			g_grd : N1 | T1 | C1
+			l_eff : { N2 :=tt ; C2 := ff;  t2 :=  0; }
+			g_eff :{  }
+		 }
+	 }
+	 
+}

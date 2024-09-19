@@ -1,0 +1,18 @@
+n=4:
+
+(cm0 --> (sb1 & sb2 & sb3)) & (cm1 --> (sb1 & sb2 & sb3)) & (cm2 --> (sb1 & sb2 & sb3)) & (cm3 --> (sb1 & sb2 & sb3))
+
+A( (cm0 => AF(sb1 & sb2 & sb3)) W (sb1 & sb2 & sb3)) & 
+A( (cm1 => AF(sb1 & sb2 & sb3)) W (sb1 & sb2 & sb3)) & 
+A( (cm2 => AF(sb1 & sb2 & sb3)) W (sb1 & sb2 & sb3)) & 
+A( (cm3 => AF(sb1 & sb2 & sb3)) W (sb1 & sb2 & sb3))
+ 
+======================================================
+
+n=3:
+
+(cm0 --> (sb1 & sb2)) & (cm1 --> (sb1 & sb2)) 
+
+A( (cm0 => AF(sb1 & sb2)) W (sb1 & sb2)) & 
+A( (cm1 => AF(sb1 & sb2)) W (sb1 & sb2)) 
+

@@ -1,0 +1,129 @@
+<html>
+<head>
+	<title>Eshmun: User Manual</title>
+</head>
+<body>
+    <table width="750px">
+    <tr>
+    <td valign="top" width="200px" style="padding-left: 20px; padding-top: 30px; border-right: solid 1px;">
+        <h2>Navigation</h2>
+        <p>
+        <a href="graph.html">Manipulate Structure</a> <br/><br/>
+        <a href="concurrent.html">Concurrent Kripke Structure</a> <br/><br/>
+        <a href="skeletons.html">Synchronization Skeletons</a> <br/><br/>
+        <a href="io.html">Saving and Loading</a> <br/><br/>
+        <a href="export.html">Exporting</a> <br/><br/>
+        <a href="zoom.html">Search and Zoom</a> <br/><br/>
+        <a href="logic.html">Logic and Syntax</a> <br/><br/>
+        <a href="check.html">Model Check</a> <br/><br/>
+        <a href="repair.html">Model Repair</a> <br/><br/>
+        <a href="abstraction.html">Abstractions</a> <br/><br/>
+        <a href="coloring.html">Transition Coloring</a> <br/><br/>
+        <a href="script.html">Scripting</a> <br/><br/>
+        <a href="refinement.html">Refinement</a> <br/><br/>
+        <a href="unsat.html">Unsat Core</a> <br/><br/>
+        <!-- Add Section -->
+        </p>
+    </td>
+    <td valign="top" style="padding-left: 50px; padding-top: 30px;">
+        <h2>Refinements: Chain Repair with feedback</h2>
+
+        <p>Refinements allow you to start repairing an initial Kripke structure 
+        against initial specifications, as you proceed with the repair, you can use
+        feedback provided by the tool to change the Kripke structure and specifications. </p> <br/>
+        
+        <p>This allows for the gradual development of more complex Kripke structures that
+        abide by increasingly complex or relaxed specifications, translating from Kripke structures
+        to synchronization skeletons (and back) is supported, and can be used during the refinement 
+        whenever needed.</p> <br/>
+        
+        <p>The refinements toolkit allow you to save and replay these steps as needed, you 
+        can reload the whole sequence of repair/modify later and apply changes to it as needed.</p> <br/>
+        
+        <p><b>All Instances of Eshmun will start with an initial nameless and empty refinement, to begin a
+        refinement sequence, start working on the Structures and Specifications immediately, whenever a step
+        is completed, save the refinement step then create a new one on top of it through the controls explained
+        below.</b> </p> <br/> 
+        
+        <p>
+        <b>The refinement tab</b>
+        <p>The main refinement controls are provided inside the refinement tab, which is located by default at the
+        top and center of the screen, the controls are as follows (from left to right): <ul>
+            <li><b>New Refinement Step:</b> 
+            This button allows you to create a new refinement step, the new refinement step will carry the current 
+            Kripke Structure/Synchronization Skeleton. The new step will placed immediately after the current step
+            (not at the end of refinement sequence), any modifications that are added after the new refinement step 
+            is created will not affect previous steps. <i>The new refinement step - although created - is not saved 
+            automatically, and remains nameless until explicitly saved by the user.</i></li>
+            
+            <li><b>Save Refinement Step:</b>
+            This button will save the current changes to the current step, if the step was recently created or nameless
+            a prompt will appear asking for the name, you can use the name to navigate to this step later, <i>always
+            remember to save before creating a new refinement</i>.
+            </li>
+            
+            <li><b>Previous Refinement Step:</b>
+            Navigates back to the previous refinement step, any unsaved changes to the current refinement will be lost.            
+            </li>
+            
+            <li><b>Next Refinement Step:</b>
+            Navigates back to the next refinement step, any unsaved changes to the current refinement will be lost.            
+            </li>
+            
+            <li><b>Export Refinement Sequence:</b>
+            Allows you to save the whole sequence of refinement to an external file, the refinement can be loaded from that
+            file at any time. The names, order, and content of each refinement is perserved.
+            </li>
+            
+            <li><b>Show Refinement Sidebar:</b>
+            Shows the refinement sidebar on the right side of the screen, the sidebar will contain a list of names and types
+            of refinement steps that exist currently in the refinement, as well as additional advanced controls.
+            </li>
+        </ul>
+        </p> <br/> 
+        </p>
+	    
+	    <p>
+	    <b>Refinement Sidebar and Advanced Control</b>
+	    <p>The sidebar can be closed at any point by clicking the x button in the top right corner, The sidebar 
+	    contains a list of all the refinement steps in the current refinement, the current refinement will be 
+	    highlighted whenever the sidebar is made visible, you can select a refinement by clicking on it in the
+	    list, and then choosing an advanced control from the bottom section of the sidebar. </p> <br/>
+	    
+	    The advanced controls are as follows (from left to right): <ul>
+	    	<li><b>Open Refinement: </b>
+	    	Navigates to the chosen refinement, Unsaved changes made to the current refinement will be lost.</li>
+	    	
+	    	<li><b>Open Refinement in a New Window: </b>
+	    	Opens the chosen refinement in a new window next to the current window, unsaved changes made to the
+	    	current refinement will persist in the original window, but will not persist if navigated to from the
+	    	new window (unless saved). Closing the original window without saving will result in the changes
+	    	being lost. <i>This option is most-suitable for visual diff of steps, it is not recommended to apply big and
+	    	concurrent changes to refinement steps (specially the same one) from multiple windows.</i> </li>
+	    	
+	    	<li><b>Delete Refinement Step: </b>
+	    	Deletes the chosen the refinement. <i>This operation cannot be reverted.</i> If you have deleted a refinement
+	    	step by mistake but have the refinement sequence saved to a file, you can reload the file to regain the lost 
+	    	refinement step. </li>
+	    	
+	    	<li><b>Rename Refinement Step: </b>
+	    	A prompt will appear asking for a new name for the chosen refinement step.
+	    	</li>
+		</ul>
+	    </p> <br/>
+	    
+	    <p>
+	    <b>Loading a Saved Refinement Sequence</b>
+	    <p>
+	    You can load/open a saved refinement sequence through the Eshmun standard open. Go to File Menu -> open (Ctrl + o), a
+        dialog will appear asking for the input file, if the chosen file contained a refinement sequence, this sequence will
+        be loaded, and the first refinement step will be loaded in the beginning, you can use the navigation controls to navigate 
+        the loaded sequence.</p> <br/>
+	    </p> <br/>
+	    </p>
+    </td>
+    </tr>
+    </table>
+</body>
+</html>
+

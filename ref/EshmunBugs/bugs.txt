@@ -1,0 +1,28 @@
+
+                                ESHMUN Bug Log
+
+
+Date: 11 October 2019
+Author: P Attie
+
+
+1. PetersonAbstractionExample/
+
+File PetBool.txt contains correct code for Petersons two process mutual exclusion algorithm
+
+File PetBoolClusteredAbstraction.kpk contains a Kripke structure that shows the clustering according to the abstraction which
+uses as abstraction formulae N1, T1, C1, N2, T2, C2.
+Most states are alone, but the are several pairs of states that the abstraction algorithm considers equivalent, but they should not be considered equivalent. so it seems to be a bug in the abstraction algorithm
+
+
+2. Voting/
+
+File AVOS.mkp: contains the Kripke structure for a voting machine
+
+File AVOSprog.txt contains the extracted program. Upon importing this program, one obtains a
+  completely different Kripke structure than AVOS.mkp, which leads me to think that the extraction algorithm is incorrect.
+  This is born out by manual inspection of AVOS-Prog.txt
+
+
+
+================================================

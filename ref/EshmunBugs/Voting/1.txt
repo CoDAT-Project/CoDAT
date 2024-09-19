@@ -1,0 +1,162 @@
+program  {
+	initial   : (BlnkCrd1)
+	process  1 {
+		action   {
+			l_grd : El1 & Ld1 
+			g_grd : true 
+			l_eff : El1,Ld1 := tt,tt
+			g_eff : skip
+		 }
+		action   {
+			l_grd : El1 & Ld1 
+			g_grd : true 
+			l_eff : El1,Ld1,StFr1 := tt,ff,tt
+			g_eff : skip
+		 }
+		action   {
+			l_grd : El1 & Ld1 
+			g_grd : true 
+			l_eff : El1,Ld1,Tst1,ZC1 := tt,ff,tt,tt
+			g_eff : skip
+		 }
+		action   {
+			l_grd : VtdBt1 & Tst1 
+			g_grd : true 
+			l_eff : El1,Ld1,Tst1,VtdBt1 := tt,tt,ff,ff
+			g_eff : skip
+		 }
+		action   {
+			l_grd : El1 & Cl1 
+			g_grd : true 
+			l_eff : Cl1,El1 := tt,tt
+			g_eff : skip
+		 }
+		action   {
+			l_grd : El1 & Cl1 
+			g_grd : true 
+			l_eff : Cl1,El1,NZC1,StFr1 := ff,tt,tt,tt
+			g_eff : skip
+		 }
+		action   {
+			l_grd : El1 & Cl1 
+			g_grd : true 
+			l_eff : Cl1,El1,Ld1 := ff,tt,tt
+			g_eff : skip
+		 }
+		action   {
+			l_grd : El1 & Tst1 & ZC1 
+			g_grd : true 
+			l_eff : El1,NZC1,Tst1,ZC1 := tt,tt,tt,tt
+			g_eff : skip
+		 }
+		action   {
+			l_grd : El1 & Tst1 & ZC1 
+			g_grd : true 
+			l_eff : El1,Tst1,ZC1 := tt,tt,tt
+			g_eff : skip
+		 }
+		action   {
+			l_grd : El1 & Tst1 & ZC1 
+			g_grd : true 
+			l_eff : El1,Ld1,Tst1,ZC1 := tt,tt,ff,ff
+			g_eff : skip
+		 }
+		action   {
+			l_grd : El1 & Tst1 & NZC1 
+			g_grd : true 
+			l_eff : El1,Ld1,NZC1,Tst1 := tt,tt,ff,ff
+			g_eff : skip
+		 }
+		action   {
+			l_grd : El1 & Tst1 & NZC1 
+			g_grd : true 
+			l_eff : El1,NZC1,Tst1 := tt,tt,tt
+			g_eff : skip
+		 }
+		action   {
+			l_grd : BlnkCrd1 
+			g_grd : true 
+			l_eff : BlnkCrd1,El1,Ld1 := ff,tt,tt
+			g_eff : skip
+		 }
+		action   {
+			l_grd : El1 & Ld1 
+			g_grd : true 
+			l_eff : BlnkCrd1,El1,Ld1 := tt,ff,ff
+			g_eff : skip
+		 }
+		action   {
+			l_grd : UnvBt1 & Tst1 
+			g_grd : true 
+			l_eff : El1,Ld1,Tst1,UnvBt1 := tt,tt,ff,ff
+			g_eff : skip
+		 }
+		action   {
+			l_grd : UnvBt1 & Tst1 
+			g_grd : true 
+			l_eff : Tst1,UnvBt1 := tt,tt
+			g_eff : skip
+		 }
+		action   {
+			l_grd : StFr1 & El1 
+			g_grd : true 
+			l_eff : El1,NZC1,StFr1 := tt,tt,tt
+			g_eff : skip
+		 }
+		action   {
+			l_grd : StFr1 & El1 
+			g_grd : true 
+			l_eff : El1,StFr1 := tt,tt
+			g_eff : skip
+		 }
+		action   {
+			l_grd : StFr1 & El1 
+			g_grd : true 
+			l_eff : El1,PrntTtlsRpt1,StFr1 := ff,tt,ff
+			g_eff : skip
+		 }
+		action   {
+			l_grd : StFr1 & El1 & NZC1 
+			g_grd : true 
+			l_eff : El1,NZC1,StFr1 := tt,tt,tt
+			g_eff : skip
+		 }
+		action   {
+			l_grd : StFr1 & El1 & NZC1 
+			g_grd : true 
+			l_eff : El1,NZC1,PrntTtlsRpt1,StFr1 := ff,ff,tt,ff
+			g_eff : skip
+		 }
+		action   {
+			l_grd : PrntTtlsRpt1 
+			g_grd : true 
+			l_eff : PrntTtlsRpt1 := tt
+			g_eff : skip
+		 }
+		action   {
+			l_grd : PrntTtlsRpt1 
+			g_grd : true 
+			l_eff : Cl1,El1,PrntTtlsRpt1 := tt,tt,ff
+			g_eff : skip
+		 }
+		action   {
+			l_grd : El1 & Cl1 
+			g_grd : true 
+			l_eff : BlnkCrd1,Cl1,El1 := tt,ff,ff
+			g_eff : skip
+		 }
+		action   {
+			l_grd : El1 & Ld1 
+			g_grd : true 
+			l_eff : El1,Ld1,Tst1,VtdBt1 := ff,ff,tt,tt
+			g_eff : skip
+		 }
+		action   {
+			l_grd : El1 & Ld1 
+			g_grd : true 
+			l_eff : El1,Ld1,Tst1,UnvBt1 := ff,ff,tt,tt
+			g_eff : skip
+		 }
+	 }
+	 specifications : { AG( El1 => ( AF( PrntTtlsRpt1 ) ) ) }
+}

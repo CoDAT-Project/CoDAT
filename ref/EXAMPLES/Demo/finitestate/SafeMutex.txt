@@ -1,0 +1,44 @@
+program  {
+	initial   : N1 & N2
+	process  1 {
+		action   {
+			l_grd : N1 
+			g_grd : C2 | N2 | T2 
+			l_eff : N1,T1 := ff,tt
+			g_eff : skip
+		 }
+		action   {
+			l_grd : T1 
+			g_grd : T2 | N2 
+			l_eff : C1,T1 := tt,ff
+			g_eff : skip
+		 }
+		action   {
+			l_grd : C1 
+			g_grd : N2 | T2 
+			l_eff : C1,N1 := ff,tt
+			g_eff : skip
+		 }
+	 }
+	process  2 {
+		action   {
+			l_grd : N2 
+			g_grd : C1 | N1 | T1 
+			l_eff : N2,T2 := ff,tt
+			g_eff : skip
+		 }
+		action   {
+			l_grd : T2 
+			g_grd : T1 | N1
+			l_eff : C2,T2 := tt,ff
+			g_eff : skip
+		 }
+		action   {
+			l_grd : C2 
+			g_grd : N1 | T1 
+			l_eff : C2,N2 := ff,tt
+			g_eff : skip
+		 }
+	 }
+	 specifications : { AG( !( C1 & C2 ) ) }
+}

@@ -1,0 +1,25 @@
+
+Deduced
+
+
+if $P_i$ commits, then $P_{i+1}$ submits and remains in the submit state until $P_i$ decides
+
+=====================================================
+
+
+n=4:
+
+( cm0 --> A(sb1 U (sb1 & (cm0 | ab0)))) & 
+( cm1 --> A(sb2 U (sb2 & (cm1 | ab1)))) & 
+( cm2 --> A(sb3 U (sb3 & (cm2 | ab2)))) 
+
+
+======================================
+
+n=3:
+
+
+( cm0 --> A(sb1 U (sb1 & (cm0 | ab0)))) & 
+( cm1 --> A(sb2 U (sb2 & (cm1 | ab1)))) 
+
+

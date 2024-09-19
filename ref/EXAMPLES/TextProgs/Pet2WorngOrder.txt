@@ -1,0 +1,81 @@
+/* this is a sample representation of a correct 2 processes program trying to enter a critical section , cf AE01 */
+program { 
+    initial:  NOne1 & NOne2          //formula for initial states
+    process 1 {  
+        action {  
+           l_grd: NOne1
+           g_grd: true;
+           l_eff: NOne1, NTwo1 :=  ff ,tt
+           g_eff: x := 2;
+        } 
+       action {  
+           l_grd: NTwo1
+           g_grd: true;
+           l_eff: NTwo1 ,TOne1 :=  ff ,tt
+           g_eff:  x:= 2;
+        } 
+       action {  
+           l_grd: TOne1 
+           g_grd: N2 | (x=1)
+           l_eff: TOne1 ,TTwo1 :=  ff ,tt
+           g_eff: x := null
+        }     
+
+       action {  
+           l_grd: TTwo1 
+           g_grd: true;
+           l_eff: TTwo1 , C1 :=  ff ,tt
+           g_eff: skip
+        }        
+
+   action {  
+           l_grd: C1
+           g_grd: true;
+           l_eff: C1, NOne1 :=  ff ,tt
+           g_eff: skip
+        }       
+               
+    }
+
+
+
+
+    process 2 {  
+        action {  
+           l_grd: NOne2 
+           g_grd: true;
+           l_eff: NOne2 ,  NTwo2 :=  ff ,tt
+           g_eff: skip;
+        } 
+       action {  
+           l_grd: NTwo2
+           g_grd: true;
+           l_eff: NTwo2 ,TOne2 :=  ff ,tt
+           g_eff:  x:= 1;
+        } 
+       action {  
+           l_grd: TOne2 
+           g_grd: N1 | (x=2)
+           l_eff: TOne2 ,TTwo2 :=  ff ,tt
+           g_eff: x := null
+        }     
+
+      action {  
+           l_grd: TTwo2 
+           g_grd: true;
+           l_eff: TTwo2 , C2 :=  ff ,tt
+           g_eff: skip
+        }        
+
+   action {  
+           l_grd: C2
+           g_grd: true;
+           l_eff: C2, NOne2 :=  ff ,tt
+           g_eff: skip
+        }         
+
+               
+    }
+
+ 
+}

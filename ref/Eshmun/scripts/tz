@@ -1,0 +1,9 @@
+mutex2(1,2)
+states:
+S1:T1,N2:false:false;
+S0:N1,N2:true:false;
+transitions:
+S0:S1:false:a1,a2;
+S0:S0:false:A;
+specifications:
+AG( !( C1 & C2 ) )

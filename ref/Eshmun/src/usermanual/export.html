@@ -1,0 +1,81 @@
+<html>
+<head>
+	<title>Eshmun: User Manual</title>
+</head>
+<body>
+    <table width="750px">
+    <tr>
+    <td valign="top" width="200px" style="padding-left: 20px; padding-top: 30px; border-right: solid 1px;">
+        <h2>Navigation</h2>
+        <p>
+        <a href="graph.html">Manipulate Structure</a> <br/><br/>
+        <a href="concurrent.html">Concurrent Kripke Structure</a> <br/><br/>
+        <a href="skeletons.html">Synchronization Skeletons</a> <br/><br/>
+        <a href="io.html">Saving and Loading</a> <br/><br/>
+        <a href="export.html">Exporting</a> <br/><br/>
+        <a href="zoom.html">Search and Zoom</a> <br/><br/>
+        <a href="logic.html">Logic and Syntax</a> <br/><br/>
+        <a href="check.html">Model Check</a> <br/><br/>
+        <a href="repair.html">Model Repair</a> <br/><br/>
+        <a href="abstraction.html">Abstractions</a> <br/><br/>
+        <a href="coloring.html">Transition Coloring</a> <br/><br/>
+        <a href="script.html">Scripting</a> <br/><br/>
+        <a href="refinement.html">Refinement</a> <br/><br/>
+        <a href="unsat.html">Unsat Core</a> <br/><br/>
+        <!-- Add Section -->
+        </p>
+    </td>
+    <td valign="top" style="padding-left: 50px; padding-top: 30px;">
+        <h2>Exporting and Importing</h2>
+
+        <p>You can export any model into text representation or an image, the
+        text representation doesn't perserve format / spacing. However, it is 
+        useful for use across different versions or exchange over emails.</p> <br/>
+        
+        <p>To export a structure, go to File Menu -> Export -> Image / Text 
+        representation (Ctrl + i, Ctrl + t respectively).</p> <br/>
+        
+        <p>To import a structure, go to File Menu -> Import -> Text representation
+        (Ctrl + t), this imports a structure into a new instance of Eshmun, old 
+        unsaved content will be lost.</p> <br/>
+
+        <p>
+        <b>Text Format</b>
+        <p>Single Kripke Structure:
+        <ul>
+            <li>The first line contains the structure name.</li>
+            <li>The second line is "States:", the lines following it
+            contain the states definitions, each on its own line.</li>
+            <li>A State definition is on the form 
+            {Name}:{Prop1},{Prop2},...:{startstate}:{retainstate};</li>
+            <li>After the state definitions, there should exist a line 
+            with "Transitions:". Following that line the transitions 
+            definitions must appear, each on its own line.</li>
+            <li>A Transition definition is on the form 
+            {Name_of_start_state}:{Name_of_target_state}:{retaintransition}:{action_name};</li>
+            <li>The specifications are defined after the transition definitions.
+            There should be a line with "Specifications:". The specification formula
+            is written on the next line as text.</li>
+        </ul>
+        </p> <br/>
+        
+        <p>Concurrent Kripke Structure:
+        <ul>
+            <li>First line is "***MULTI***"</li>
+            <li>After that line, each Kripke Structure is written, in the 
+            same format discussed above.</li>
+            <li>The name of each Kripke Structure should have attached to it 
+            The pair process inside that structure, comma seperated and between
+            parenthesis.</li>
+            <li>After Each Kripke structure, there should be a line with 
+            "***END***".</li>
+        </ul>
+        </p> <br/>
+        
+        <b>All formats discussed above are case-sensetive.</b>
+        </p> <br/>        
+    </td>
+    </tr>
+    </table>
+</body>
+</html>

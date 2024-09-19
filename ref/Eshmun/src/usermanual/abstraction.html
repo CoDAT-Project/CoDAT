@@ -1,0 +1,74 @@
+<html>
+<head>
+	<title>Eshmun: User Manual</title>
+</head>
+<body>
+    <table width="750px">
+    <tr>
+    <td valign="top" width="200px" style="padding-left: 20px; padding-top: 30px; border-right: solid 1px;">
+        <h2>Navigation</h2>
+        <p>
+        <a href="graph.html">Manipulate Structure</a> <br/><br/>
+        <a href="concurrent.html">Concurrent Kripke Structure</a> <br/><br/>
+        <a href="skeletons.html">Synchronization Skeletons</a> <br/><br/>
+        <a href="io.html">Saving and Loading</a> <br/><br/>
+        <a href="export.html">Exporting</a> <br/><br/>
+        <a href="zoom.html">Search and Zoom</a> <br/><br/>
+        <a href="logic.html">Logic and Syntax</a> <br/><br/>
+        <a href="check.html">Model Check</a> <br/><br/>
+        <a href="repair.html">Model Repair</a> <br/><br/>
+        <a href="abstraction.html">Abstractions</a> <br/><br/>
+        <a href="coloring.html">Transition Coloring</a> <br/><br/>
+        <a href="script.html">Scripting</a> <br/><br/>
+        <a href="refinement.html">Refinement</a> <br/><br/>
+        <a href="unsat.html">Unsat Core</a> <br/><br/>
+        <!-- Add Section -->
+        </p>
+    </td>
+    <td valign="top" style="padding-left: 50px; padding-top: 30px;">
+        <h2>Abstractions</h2>
+
+        <p>
+        <b>Abstraction By Label</b>
+        <p>This abstraction groups states together by the labels they satisfy, only the labels
+        within the specifications are used within this abstraction. This abstraction works best
+        for specifications that contain permutations of a small number of labels. <br/>
+        To Abstract by label, go to Tools -> Abstract By Label.</p>
+        </p> <br/>
+        
+        <p>
+        <b>Abstraction By Sub Formula</b>
+        <p>This abstraction uses the largest (in size) sub formulae in the specifications that 
+        do not contain CTL. The states are grouped based on the truth values of all these sub
+        formulae, this abstraction reduces the state space heavily. It works best for
+        large specifications that contain many labels but few CTL modalities. <br/>
+        To Abstract by Sub Formula, go to Tools -> Abstract By Formula.</p>
+        </p> <br/>
+        
+        <p>
+        <b>Repairing By Abstraction:</b>
+        <p>To repair by using abstraction, first you must carry out the desired abstraction, then
+        repair the resulting new structure, if repair was successfully, you can project it back to
+        the original structure using Tools -> Concretize Repair. </p> <br>
+        
+        <p>Concretizing a repair involves model checking the new structure, in case the model check 
+        fail, the abstracted structure will be made visible again, with an error message. You
+        can either retain states/transitions or traverse to another repair, then try to concretize
+        again.</p> <br>
+        
+        <p>If concretizing succeeds, the original structure will be displayed, with the concretized 
+        repair dashed. If you wish to go back the original structure disregarding the abstraction
+        you can go to Tools -> Cancel Abstraction. </p> <br>
+        </p> <br/>
+        
+        <p>
+        The abstraction is extended to concurrent structures, concurrent abstraction will abstract every pair against
+        its specifications. Repairing and Concretizing follows the description above, however, when concretizing, the
+        structure is checked for synchronization between the different pairs in addition to model checking it
+        against the specifications. 
+        </p>
+    </td>
+    </tr>
+    </table>
+</body>
+</html>

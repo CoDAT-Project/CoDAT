@@ -1,0 +1,118 @@
+<html>
+<head>
+	<title>Eshmun: User Manual</title>
+</head>
+<body>
+    <table width="750px">
+    <tr>
+    <td valign="top" width="200px" style="padding-left: 20px; padding-top: 30px; border-right: solid 1px;">
+        <h2>Navigation</h2>
+        <p>
+        <a href="graph.html">Manipulate Structure</a> <br/><br/>
+        <a href="concurrent.html">Concurrent Kripke Structure</a> <br/><br/>
+        <a href="skeletons.html">Synchronization Skeletons</a> <br/><br/>
+        <a href="io.html">Saving and Loading</a> <br/><br/>
+        <a href="export.html">Exporting</a> <br/><br/>
+        <a href="zoom.html">Search and Zoom</a> <br/><br/>
+        <a href="logic.html">Logic and Syntax</a> <br/><br/>
+        <a href="check.html">Model Check</a> <br/><br/>
+        <a href="repair.html">Model Repair</a> <br/><br/>
+        <a href="abstraction.html">Abstractions</a> <br/><br/>
+        <a href="coloring.html">Transition Coloring</a> <br/><br/>
+        <a href="script.html">Scripting</a> <br/><br/>
+        <a href="refinement.html">Refinement</a> <br/><br/>
+        <a href="unsat.html">Unsat Core</a> <br/><br/>
+        <!-- Add Section -->
+        </p>
+    </td>
+    <td valign="top" style="padding-left: 50px; padding-top: 30px;">
+        <h2>Concurrent Kripke Structure</h2>
+
+        <p>A Concurrent Kripke Structure is a model for concurrent programs, 
+        it is made by a collection of Pair Kripke Structures(*).</p> <br/>
+        
+        <p>To create a new a Concurrent Kripke Structure go to File Menu -> New 
+        -> Concurrent Kripke Structure (Ctrl + m in Short).</p> <br/>
+        
+        <p>This will change main panel into a tabbed panel, the title of each 
+        tab is the name of the contained sub Kripke Structure and the process-pair
+        inside that structure.</p> <br/>
+        
+        <p>
+        <b>Managing Structures:</b>
+        You can do the following: <ul>
+            <li>Add a new structure: right click on any tab title -> Add. A
+            Dialog will appear asking for the name of the new structure (has 
+            to be unique), and the process pair inside the structure (also 
+            unique).</li>
+            <li>Edit a structure: right click on the its title -> Edit. A 
+            Dialog will appear asking for the new name and the process pair, same
+            constraint apply.</li>
+            <li>Remove a structure: right click on its title -> Remove.</li>
+            <li>Process Indices: The indices can be any string excluding white
+            spaces, commas, equals, and curly braces. The labels of states that reflect a process
+            related functionality must be suffixed with the appropriate
+            index.</li>
+        </ul>
+        </p> <br/>
+        
+        <p>
+        <b>Shared Variables:</b>
+        Any label that is not suffixed with any process index is a shared variable. Shared variables
+        are scoped according to their Pair Kripke Structure. That is, shared variable x in the pair
+        structure of processes 1 and 2, is different from x in the pair structure of processes 2 and 3. <br/>
+        Shared Variables can have values (integers or strings), in which case the symbol := is used for 
+        assigning the value. The = symbol without the preceding : is used in formulae to represent a test
+        of the value. It can not be used inside the state label definition.
+        </p> <br/>
+        
+        <p>
+        <b>Process Indices and Actions Synchronization:</b>
+        In a concurrent structure, synchronization across pairs can be done in two ways: <ul>
+        <li>Eshmun can automatically synchronize a process transitions across all pairs, Eshmun
+        will deduce which transition to synchronize based on the changes a transition inflicts on
+        the state of its process. For this to work, The structure must be a valid pair structure(*).</li>
+        <li>A user can manually label transitions with action names, each transition can have more than one
+        action name, synchronization of these actions ensures that either all of the transition label by one
+        action are removed, or at least one is retained per pair.</li>
+        </ul>
+        
+        <p>Users can control which of these synchronizations are used and which are ignored. Go to the Edit
+        Menu -> Sync Actions, Edit Menu -> Sync Process Indices to turn the synchronization on/off.</p>
+        
+        <p>To change the action label of a transition, click on the transition and then go to Edit Menu
+        -> Edit (or right click on the transition and choose Edit Action). Then a dialog will appear
+        where action labels can be inserted (comma-separated).</p>
+        </p> <br/>
+	    
+	    <p>
+	    <b>Manipulating a sub-structure:</b>
+	    You can Manipulate each structure in the same manner as the single kripke structure. 
+	    Clear, Undo, and Redo only affect the current open sub structure.
+	    </p> <br/>
+	    
+	    <p>
+	    <b>Auto generating Isomorphic pairs:</b>
+	    You can auto generate Isomorphic pairs from any <u>single</u> Kripke structure. Open the desired single Kripke
+	    structure, click on the Edit -> Generate Pairs, then enter the specific number of pairs, you will then be
+	    prompted for the arrangement of the pairs: <ul>	    
+	    <li>You can choose to generate all pairs, in which case the generated pairs will contain all distinct combination 
+	    of 2 processes between process 1 to n. n being the number of pairs entered. This is used for Mutex.</li>
+	    <li>You can also choose to generate pairs on a ring, in which case the generated pairs will be pairs of consecutive
+	    pairs (neighbors), such that the last pair contains the first and last process. This is used for Dining Philosophers.</li>
+	    </ul>
+	    </p> <br/>
+	    
+	    <p>
+	    <b>(*) Pair Kripke Structure:</b>
+	    For a single Kripke structure to be a valid <u>Pair</u> structure, it must contain two processes only,
+	    each transition can make a move on one of the two processes (not both), labels ending with a process index (
+	    could be an integer or a string) are considered to be process specific, labels not ending with such an index
+	    are considered to be shared variables.
+	    <p> <br/>
+    </td>
+    </tr>
+    </table>
+</body>
+</html>
+

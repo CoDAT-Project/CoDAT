@@ -1,0 +1,87 @@
+
+
+Deduction of line 9 from lines 5 and 8
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+n=3:
+
+
+(
+AG( sb1 => A(sb1 U (sb1 & (cm0 | ab0)))) & AG( sb2 => A(sb2 U (sb2 & (cm1 | ab1)))) &  // line 8
+(cm0 --> sb1) & (cm1 --> sb2)                                                                                    // line 5
+)
+=>
+(cm1 --> A(sb2 U (sb2 & (cm1 | ab1))))                                                                         // line 9
+
+
+
+(
+AG( sb1 => A(sb1 U (sb1 & (cm0 | ab0)))) & AG( sb2 => A(sb2 U (sb2 & (cm1 | ab1)))) &
+A( (cm0 => AF(sb1)) W (sb1)) & A( (cm1 => AF(sb2)) W (sb2))
+)
+=>
+A(  (cm1 => AF( A(sb2 U (sb2 & (cm1 | ab1))) ))  W A(sb2 U (sb2 & (cm1 | ab1))) )  
+
+
+===================================================
+PROOF DECOMPOSITION
+===================================================
+
+(
+AG( sb2 => A(sb2 U (sb2 & (cm1 | ab1)))) &
+(cm1 --> sb2) 
+)
+=>
+(cm1 --> A(sb2 U (sb2 & (cm1 | ab1)))) 
+
+
+
+(
+AG( sb2 => A(sb2 U (sb2 & (cm1 | ab1)))) &  A( (cm1 => AF(sb2)) W (sb2))
+)
+=>
+A(  (cm1 => AF( A(sb2 U (sb2 & (cm1 | ab1))) ))  W A(sb2 U (sb2 & (cm1 | ab1))) )  
+
+
+
+
+
+Symbolic version
+
+(
+AG( sb2 => symb) & (cm1 --> sb2) 
+)
+=>
+(cm1 --> symb)
+
+
+
+
+(
+AG( sb2 => symb) &  A( (cm1 => AF(sb2)) W (sb2))
+)
+=>
+A( (cm1 => AF(symb)) W (symb))
+
+shown valid by Eshmun
+
+
+More abstract version is
+
+( f --> g &  AG( g => h ) ) => (f --> h)
+
+ie in CTL
+
+( ( A( ( f => ( AF( g ) ) ) W g ) ) & ( AG( g => h ) ) ) => ( A( ( f => ( AF( h ) ) ) W h ) )
+
+is valid, by Eshmun decision procedure
+
+now substitute

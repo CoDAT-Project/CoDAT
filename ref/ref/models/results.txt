@@ -1,0 +1,22 @@
+MUTEX:
+
+AG( !( C1&C2 ) )
+2 Process :     44621281    43783075    43672204    48582728    46727859    =>  AVG: 45477429.4  NANO   ~ 0.045 SECONDS
+
+AG( !( C1&C2 ) ) & AG( !( C2&C3 ) ) & AG( !( C1&C3 ) )  
+3 Process :     187845463   191385865   188797755   188515550   180060898   =>  AVG: 187321106.2 NANO   ~ 0.18 SECONDS
+
+AG( !( C1&C2 ) ) & AG( !( C1&C3 ) ) & AG( !( C1&C4 ) ) & AG( !( C2&C1 ) ) & AG( !( C2&C3 ) ) & AG( !( C2&C4 ) ) & AG( !( C3&C1 ) ) & AG( !( C3&C2 ) ) & AG( !( C3&C4 ) ) & AG( !( C4&C1 ) ) & AG( !( C4&C2 ) ) & AG( !( C4&C3 ) )
+4 Process :     
+
+
+BARRIER:
+
+AG( !(SA1 & SB2) ) & AG( !(SB1 & SA2) )  & AG( !(EA1 & EB2) ) & AG( !(EB1 & EA2) )
+2 Process :     218401679   217394951   215908008   235989366   231288578   =>  AVG: 223796516.4 NANO   ~ 0.22 SECONDS
+
+AG( !(SA1 & SB2) ) & AG( !(SB1 & SA2) )  & AG( !(EA1 & EB2) ) & AG( !(EB1 & EA2) )  & AG( !(SB1 & SC2) ) & AG( !(SC1 & SB2) )  & AG( !(EB1 & EC2) ) & AG( !(EC1 & EB2) )
+3 Process :     1471748198  1459283131  1474265228  1460230396  1484527339  =>  AVG: 1470010858.4 NANO  ~ 1.47 SECONDS
+
+AG( !(SA1 & SB2) ) & AG( !(SB1 & SA2) )  & AG( !(EA1 & EB2) ) & AG( !(EB1 & EA2) )  & AG( !(SB1 & SC2) ) & AG( !(SC1 & SB2) )  & AG( !(EB1 & EC2) ) & AG( !(EC1 & EB2) )  & AG( !(SC1 & SD2) ) & AG( !(SD1 & SC2) )  & AG( !(EC1 & ED2) ) & AG( !(ED1 & EC2) )
+4 Process :     

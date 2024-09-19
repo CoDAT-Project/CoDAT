@@ -1,0 +1,28 @@
+Pair-property
+
+commitment is stable
+
+==========================================
+
+
+n=4:
+
+AG(!cm0 | ! ab0) & AG(cm0 => AG(cm0)) & 
+AG(!cm1 | ! ab1) & AG(cm1 => AG(cm1)) & 
+AG(!cm2 | ! ab2) & AG(cm2 => AG(cm2)) & 
+AG(!cm3 | ! ab3) & AG(cm3 => AG(cm3)) 
+
+
+=============================================
+
+n=3:
+
+AG(!cm0 | ! ab0) & AG(cm0 => AG(cm0)) & 
+AG(!cm1 | ! ab1) & AG(cm1 => AG(cm1)) & 
+AG(!cm2 | ! ab2) & AG(cm2 => AG(cm2)) & 
+
+
+++++++++++++++++++++++++++++++++++++++++
+
+Eshmun model checked in P4 || P0, P0 || P1, and P1 || P2
+

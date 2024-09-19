@@ -1,0 +1,61 @@
+/* this is a sample representation of a 2 processes program trying to
+enter a critical section */
+
+program {	
+
+    initial:	N1 & N2   					//formula for initial states
+
+    process 1 {  
+             
+        action a11 {                  				// a1 is an optional name
+           l_grd:	N1 
+           g_grd:	tt 
+           l_eff:       N1 ,T1 :=  ff ,tt	
+           g_eff:       skip			
+      	} 
+
+        action a12 {                  			
+           l_grd:	T1 
+           g_grd:	!C2
+           l_eff:       T1 ,C1 :=  ff ,tt	
+           g_eff:       skip			
+      	} 
+      
+       action a13 {  
+           l_grd:	C1 
+           g_grd:	tt
+           l_eff:	C1 ,N1 :=  ff ,tt
+           g_eff:	skip
+        }  
+                
+    }
+
+
+    process 2{   
+  
+       action a21 {          
+           l_grd:	N2
+           g_grd:	tt
+           l_eff:	N2 ,T2 :=  ff ,tt
+           g_eff:	skip
+        } 
+
+       action a22 {          
+           l_grd:	T2
+           g_grd:	!C1
+           l_eff:	T2 ,C2 :=  ff ,tt
+           g_eff:	skip
+        } 
+
+       action a23 {  
+           l_grd:	C2 
+           g_grd:	tt
+           l_eff:	C2 ,N2 :=  ff ,tt
+           g_eff:	skip
+        } 
+
+
+    }
+
+ 
+}

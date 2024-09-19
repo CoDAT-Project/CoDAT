@@ -1,0 +1,1 @@
+AG( no_auth => ( !( EX( give_money ) ) ) )

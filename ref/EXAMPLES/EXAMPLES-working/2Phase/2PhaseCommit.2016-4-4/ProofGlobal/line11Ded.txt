@@ -1,0 +1,18 @@
+
+
+Deduction of line 11 from line 10
+
+( cm0 --> A(sb1 U (sb1 & cm0)) ) => ( cm0 --> (sb1 & cm0) ) 
+( cm1 --> A(sb2 U (sb2 & cm1)) ) => ( cm1 --> (sb2 & cm1) ) 
+
+
+A( (cm0 => AF(A(sb1 U (sb1 & cm0 ))))  W A(sb1 U (sb1 & cm0 )) )
+=>
+A( (cm0 => AF(sb1 & cm0))  W (sb1 & cm0 ) )
+
+
+abstract version
+
+A( (cm0 => AF(A(sb1 U (symb ))))  W A(sb1 U (symb)) )
+=>
+A( (cm0 => AF(symb))  W (symb ) )

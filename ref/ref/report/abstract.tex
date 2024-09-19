@@ -1,0 +1,19 @@
+
+We consider the \emph{model repair problem}: given a finite Kripke structure $M$ and a CTL formula $\eta$, determine if
+$M$ contains a substructure $M'$ that satisfies $\eta$. Thus, $M$ can be ``repaired'' to satisfy $\eta$ by deleting some
+transitions.
+We map an instance $(M, \eta)$ of model repair to a boolean formula $\repfor(M,\eta)$ such that $(M, \eta)$ has a
+solution iff $\repfor(M,\eta)$ is satisfiable. Furthermore, a satisfying assignment determines which states and
+transitions must be removed from $M$ to generate a model $M'$ of $\eta$. Thus, we can use any SAT solver to repair
+Kripke structures.  Using a complete SAT solver yields a complete algorithm: it always finds a repair if one exists.  We
+also show that CTL model repair is NP-complete.
+We also show that several Kripke structures can model interaction more efficiently than one, using pairwise representation.
+%
+
+
+%% also present repair using abstractions: first abstract $M$, \eg
+%% w.r.t. the atomic propositions in $\eta$, and then apply repair. Finally compute
+%% an inverse image of the repair to obtain a repair for $M$. We extend
+%% our method to deal with the hierarchical Kripke structures of Alur et al.
+
+

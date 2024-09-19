@@ -1,0 +1,7 @@
+n=3:
+
+(cm1 --> A(sb2 U (sb2 & cm1 ))) & (cm2 --> A(sb3 U (sb3 & cm2 ))) 
+
+A( (cm1 => AF(A(sb2 U (sb2 & cm1 ))))  W A(sb2 U (sb2 & cm1 )) ) & 
+A( (cm2 => AF(A(sb3 U (sb3 & cm2 ))))  W A(sb3 U (sb3 & cm2 )) ) 
+

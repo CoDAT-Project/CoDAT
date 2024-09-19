@@ -1,0 +1,72 @@
+<html>
+<head>
+	<title>Eshmun: User Manual</title>
+</head>
+<body>
+    <table width="750px">
+    <tr>
+    <td valign="top" width="200px" style="padding-left: 20px; padding-top: 30px; border-right: solid 1px;">
+        <h2>Navigation</h2>
+        <p>
+        <a href="graph.html">Manipulate Structure</a> <br/><br/>
+        <a href="concurrent.html">Concurrent Kripke Structure</a> <br/><br/>
+        <a href="skeletons.html">Synchronization Skeletons</a> <br/><br/>
+        <a href="io.html">Saving and Loading</a> <br/><br/>
+        <a href="export.html">Exporting</a> <br/><br/>
+        <a href="zoom.html">Search and Zoom</a> <br/><br/>
+        <a href="logic.html">Logic and Syntax</a> <br/><br/>
+        <a href="check.html">Model Check</a> <br/><br/>
+        <a href="repair.html">Model Repair</a> <br/><br/>
+        <a href="abstraction.html">Abstractions</a> <br/><br/>
+        <a href="coloring.html">Transition Coloring</a> <br/><br/>
+        <a href="script.html">Scripting</a> <br/><br/>
+        <a href="refinement.html">Refinement</a> <br/><br/>
+        <a href="unsat.html">Unsat Core</a> <br/><br/>
+        <!-- Add Section -->
+        </p>
+    </td>
+    <td valign="top" style="padding-left: 50px; padding-top: 30px;">
+        <h2>Model Check</h2>
+
+        <p>
+        You can model check any model after inputing its specifications, to do so simply
+        go to the Tools Menu -> Model Check (F8). Model Check will be carried out for the
+        entire open structure.
+        </p> <br/>
+        
+        <p>
+        After model checking is complete, the result is displayed in the status panel (bottom
+        right corner of the screen), with the time required in nano seconds.
+        </p> <br/>
+        
+        <p>
+        Model Checking a concurrent Kripke structure will check all the pairs against their specifications.
+        </p> <br/>
+        
+        <h2>Global Model Check</h2>
+        <p>
+        Eshmun supports a variant of Model Checking as well. Global Model Checking allows to model check each state
+        against a provided CTL formula (could be different than the structure specifications). The states that satisfy
+        the formula will be indicated visually.
+        </p> <br/>
+        
+        <p>
+        To use Global Model Check go to the Tools Menu -> Global Model Check. A dialog will popup asking you for the
+        CTL formula to be used, you can type it into the box, the box has syntax coloring and error detection help.
+        When you are satisfied with the formula, click OK to proceed.
+        </p> <br/>
+        
+        <p>
+        The states that satisfy the given formula will be shaded with stripes of grey, states not shaded do not satisfy
+        the formula.
+        </p> <br/>
+        
+        <p>
+        Global Model Check can be used in order to identify certain states that may cause repair to fail. It can be used
+        to help modify the structure accordingly.
+        </p> <br/>
+    </td>
+    </tr>
+    </table>
+</body>
+</html>

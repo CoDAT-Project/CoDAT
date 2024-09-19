@@ -1,0 +1,59 @@
+define mutex<i, j> {
+states:
+S0:N[i],N[j]:true:false;
+S1:N[i],T[j]:false:false;
+S2:N[i],C[j]:false:false;
+S3:T[i],C[j]:false:false;
+S4:C[i],C[j]:false:false;
+S5:C[i],N[j]:false:false;
+S6:C[i],T[j]:false:false;
+S7:T[i],T[j]:false:false;
+S8:T[i],N[j]:false:false;
+
+transitions:
+S0:S8:false:Action1;
+S0:S1:false;
+S1:S7:false;
+S1:S2:false;
+S2:S3:false;
+S2:S0:false;
+S3:S4:false;
+S3:S8:false;
+S4:S2:false;
+S4:S5:false;
+S5:S0:false;
+S5:S6:false;
+S6:S1:false;
+S6:S4:false;
+S7:S6:false;
+S7:S3:false;
+S8:S5:false;
+S8:S7:false;
+
+specifications:
+    AG(!(C[i] & C[j]))
+}
+
+for i in 1:4
+	if i < 3
+		if i % 2 == 0
+			for j in i*10:i*10+2
+			    instance mutex<i, j>
+		    end //sss
+	    else
+	    	if i % 2 == 1
+				for j in i*10:i*10+1
+				    instance mutex<i, j>
+		    	end //sss
+		    end
+	    end
+    else
+    	if i == 3
+			instance mutex<i, 30>
+		else
+			instance mutex<i, 40>
+		end
+    end
+end
+
+list

@@ -1,0 +1,8 @@
+We model the dining philosphers problem as a multi kripke structure. Each Kripke 
+Structure consists of two philosophers who share a common fork, and its states and
+transitions describe all the actions each of the philosopers can take(T: thinking,
+L: pick up left fork, R: pick up right fork, E: eating). We use a CTL formula to
+prevent the two philosphers from reaching a state where they both are eating, or
+a state where they reside in a deadlock(both are contesting for the common fork)
+The CTL formula for each two philosophers is as follows:
+AG(!(E1 & E2) & !(R1 & L2) & !(L1 & R2))

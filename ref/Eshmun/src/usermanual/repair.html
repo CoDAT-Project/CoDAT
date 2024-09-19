@@ -1,0 +1,105 @@
+<html>
+<head>
+	<title>Eshmun: User Manual</title>
+</head>
+<body>
+    <table width="750px">
+    <tr>
+    <td valign="top" width="200px" style="padding-left: 20px; padding-top: 30px; border-right: solid 1px;">
+        <h2>Navigation</h2>
+        <p>
+        <a href="graph.html">Manipulate Structure</a> <br/><br/>
+        <a href="concurrent.html">Concurrent Kripke Structure</a> <br/><br/>
+        <a href="skeletons.html">Synchronization Skeletons</a> <br/><br/>
+        <a href="io.html">Saving and Loading</a> <br/><br/>
+        <a href="export.html">Exporting</a> <br/><br/>
+        <a href="zoom.html">Search and Zoom</a> <br/><br/>
+        <a href="logic.html">Logic and Syntax</a> <br/><br/>
+        <a href="check.html">Model Check</a> <br/><br/>
+        <a href="repair.html">Model Repair</a> <br/><br/>
+        <a href="abstraction.html">Abstractions</a> <br/><br/>
+        <a href="coloring.html">Transition Coloring</a> <br/><br/>
+        <a href="script.html">Scripting</a> <br/><br/>
+        <a href="refinement.html">Refinement</a> <br/><br/>
+        <a href="unsat.html">Unsat Core</a> <br/><br/>
+        <!-- Add Section -->
+        </p>
+    </td>
+    <td valign="top" style="padding-left: 50px; padding-top: 30px;">
+        <h2>Model Repair</h2>
+
+        <p>
+        You can repair any model after inputing its specifications, to do so simply
+        go to the Tools Menu -> Model Repair (F9). Model Repair will be carried out for the
+        entire open structure.
+        </p> <br/>
+        
+        <p>
+        After model repair is complete, the result is displayed in the status panel (bottom
+        right corner of the screen), with the time required in nano seconds. The deleted transitions and 
+        states appear dashed.
+        </p> <br/>
+        
+        <p>
+        To restore the dashed transitions and states, you can go to Tools Menu
+        -> Restore Transitions.
+        </p> <br/>
+        
+        <p>
+        You can completely deleted the dashed transitions and states, to do so go to Tools Menu -> Delete Dashed.
+        </p> <br/>
+        
+        <p>
+        You can traverse between different repairs, by using the left and right arrows next to the 
+        search box (top right corner), Finding newer repairs be costlier than the initial model repair
+        (depends on the internals of the SAT Solver). Finding previous repairs is fast, since they are already saved.
+        </p> <br/>
+        
+        <p>
+        <h2>What to do when a model is not repairable?</h2>
+        <p>
+        In certain cases, the model repair operation will declare that the model is un-repairable, this means that
+        to have the model abide by the specifications, all the start state had to be deleted (which makes the resulting
+        model invalid).
+        </p> <br/>
+        
+        <p>
+        However, this often does not mean that a model that respects the given specifications can not be derived
+        from the initial model, it just means that Eshmun does not have enough information to do that.  
+        </p> <br/>
+        
+        <p>
+        To repair such models <b>User Intervention</b> is required: 
+        <ul>
+        	<li><b>Relax the specification:</b> By loosening up the specifications, Eshmun may be able to find a 
+        	repair automatically.</li>
+        	
+        	<li><b>Add Transitions:</b> Eshmun currently only supports subtractive repair, if a repair cannot be 
+        	reached by simply deleting from the model, maybe it can be reached by adding.</li>
+        	
+        	<li><b>Add/Modify States:</b> In certain cases, splitting the state into multiple ones can help Eshmun
+        	repair the model, since Eshmun can then selectivly delete some of the new states disconnecting some of
+        	the paths in the model while keeping the others. For an example of this, refer to repairing MUTEX against
+        	liveness in the paper.</li>
+        	
+        	<li><b>Get Semantic Feedback</b> by using the Minimal <a href="unsat.html">Unsat Core</a>, details on this 
+        	feature are provided in its section. This feature will show you a minimal subset of states/transitions that 
+        	are stopping the repair formula from being satisfied, these states/transitions will be marked in the GUI. 
+        	Usually, the problematic states/transitions appear as part of this core.</li>
+        	
+        	<li><b>Identify Problematic States</b> by using the Global Model Check (see <a href="check.html">
+        	Model Check</a> section). Performing Global Model Check against sub-formulae of the specifications can help
+        	identify which parts of the structure do not satisfy it. These states could be causing the repair to fail,
+        	and modifying them (by splitting them into multiple states, or changing their propositional labels) can lead
+        	to successful repair.</li>
+        	
+        	<li><b>Track your steps</b> using refinements. Before you apply any of the above procedures, it is recommended
+        	that you save your steps in a refinement, this way you will be able to track the progress of the repair and model,
+        	and roll back any changes. More information on this in the <a href="refinement.html">refinement</a> section.</li>
+        </ul>
+        </p>
+    </td>
+    </tr>
+    </table>
+</body>
+</html>

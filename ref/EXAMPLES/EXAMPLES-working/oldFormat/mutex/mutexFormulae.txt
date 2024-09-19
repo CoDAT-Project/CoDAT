@@ -1,0 +1,11 @@
+
+Formula for safety property (no more than one process in critical section at any time) of mutual exlcusion
+
+2 processes: AG( !( C1&C2 ) )
+
+3 processes: AG( !( C1&C2 ) ) & AG( !( C2&C3 ) ) & AG( !( C1&C3 ) )  
+
+4 processes: AG( !( C1&C2 ) ) & AG( !( C1&C3 ) ) & AG( !( C1&C4 ) ) & AG( !( C2&C1 ) ) & AG( !( C2&C3 ) ) & AG( !( C2&C4 ) ) & AG( !( C3&C1 ) ) & AG( !( C3&C2 ) ) & AG( !( C3&C4 ) ) & AG( !( C4&C1 ) ) & AG( !( C4&C2 ) ) & AG( !( C4&C3 ) )
+
+
+

@@ -1,0 +1,83 @@
+program  {
+	initial   : N1 & N2 & (t1=0) & (t2=0) & (c1=0) & (c2=0) &!CH1 & !CH2
+				&!SPC1 & !SPC2 &!SPT1 & !SPT2 &!C1 & !C2
+	process  1 {
+		action   {
+			l_grd : N1
+			g_grd : N2 | C2 | CH2 | SPC2 | SPT2
+			l_eff : { N1 :=ff; CH1 :=tt;  c1 := 1; }
+			g_eff : {}
+		 }
+
+		 action   {
+			l_grd : CH1
+			g_grd :  N2 | C2 | CH2 | SPC2 | SPT2 
+			l_eff : { CH1 := ff; SPC1 := tt; 
+						if( t2 < 2 ){t1 := t2 + 1; }else { t1 := 2; } c1 := 0; }
+			g_eff : {}
+		 }
+
+		 action   {
+			l_grd : SPC1
+			g_grd : ( c2 = 0 )
+			l_eff : { SPC1 := ff; SPT1 := tt;  }
+			g_eff : {}
+		 }
+
+		   action   {
+			l_grd : SPT1
+			g_grd :  (t1 <= t2) | (t2 = 0)
+			l_eff : { SPT1 := ff; C1 := tt;  }
+			g_eff : {}
+		 }
+
+		   action   {
+			l_grd : C1
+			g_grd :   N2 | C2 | CH2 | SPC2 | SPT2
+			l_eff : { C1 := ff; N1 := tt; t1 := 0; }
+			g_eff : {}
+		 }
+
+		 
+	 }
+	process  2 {
+
+	action   {
+			l_grd : N2
+			g_grd : N1 | C1 | CH1 | SPC1 | SPT1
+			l_eff : { N2 :=ff; CH2 :=tt;  c2 := 1; }
+			g_eff : {}
+		 }
+
+		 action   {
+			l_grd : CH2
+			g_grd :  N1 | C1 | CH1 | SPC1 | SPT1 
+			l_eff : { CH2 := ff; SPC2 := tt; 
+						if( t1 < 2 ){t2 := t1 + 1; }else { t2 := 2; } c2 := 0; }
+			g_eff : {}
+		 }
+
+		 action   {
+			l_grd : SPC2
+			g_grd : ( c1 = 0 )
+			l_eff : { SPC2 := ff; SPT2 := tt;  }
+			g_eff : {}
+		 }
+
+		   action   {
+			l_grd : SPT2
+			g_grd :  (t2 < t1) | (t1 = 0)
+			l_eff : { SPT2 := ff; C2 := tt;  }
+			g_eff : {}
+		 }
+
+		   action   {
+			l_grd : C2
+			g_grd :    N1 | C1 | CH1 | SPC1 | SPT1 
+			l_eff : { C2 := ff; N2 := tt; t2 := 0; }
+			g_eff : {}
+		 }
+
+	 }
+	 
+}

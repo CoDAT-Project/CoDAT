@@ -1,0 +1,98 @@
+
+\newcommand{\pc}[1]{{#1}}    %% font for pseudocode
+%\newcommand{\pc}[1]{\codetext{#1}}    %% font for pseudocode
+
+%%%%%%%%%%%%%% MACROS FOR NUMBERED LINES IN CODE TABBING ENVIRONMENT %%%%%%%%%%%%%%%%
+
+\newcounter{lctr}
+
+\newcommand{\li}{\addtocounter{lctr}{1}\arabic{lctr}.}
+\newcommand{\lio}[1]{\addtocounter{lctr}{1}\arabic{lctr}.\>\ensuremath{#1}\\}
+\newcommand{\lit}[1]{\addtocounter{lctr}{1}\arabic{lctr}.\>\>\ensuremath{#1}\\}
+\newcommand{\lih}[1]{\addtocounter{lctr}{1}\arabic{lctr}.\>\>\>\ensuremath{#1}\\}
+
+%%%% 2'nd argument is for a commment
+\newcommand{\lioc}[2]{\addtocounter{lctr}{1}\arabic{lctr}.\>\ensuremath{#1}\`{#2}\\}
+\newcommand{\litc}[2]{\addtocounter{lctr}{1}\arabic{lctr}.\>\>\ensuremath{#1}\`{#2}\\}
+\newcommand{\lihc}[2]{\addtocounter{lctr}{1}\arabic{lctr}.\>\>\>\ensuremath{#1}\`{#2}\\}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% PSEUDOCODE SECTION
+
+\newcommand{\gt}{\ensuremath{:=}}   % assignment
+\newcommand{\swap}{\ensuremath{\leftrightarrow}}   % swap two vars
+
+\newcommand{\pseudocode}[1]{\ensuremath{\mathbf{#1}\ }}
+\newcommand{\pseudocodensp}[1]{\ensuremath{\mathbf{#1}}}
+%\newcommand{\pseudocode}[1]{\mbox{${\bf #1}$}\xspace}
+
+\newcommand{\IFC}[1]{\pseudocode{if}\ (\ensuremath{#1})}
+\newcommand{\WHILEC}[1]{\pseudocode{while}\ (\ensuremath{#1})}
+\newcommand{\RETURNE}[1]{\pseudocodensp{return}(\ensuremath{#1})}
+
+\newcommand{\CASE}{\pseudocode{case}}
+\newcommand{\ENDCASE}{\pseudocode{endcase}}
+\newcommand{\IF}{\pseudocode{if}}
+\newcommand{\WHILE}{\pseudocode{while}}
+\newcommand{\FOR}{\pseudocode{for}}
+\newcommand{\FORALL}{\pseudocode{forall}}
+\newcommand{\FI}{\pseudocode{fi}}
+\newcommand{\THEN}{\pseudocode{then}}
+\newcommand{\ELSE}{\pseudocode{else}}
+\newcommand{\ELSF}{\pseudocode{else\ if}}
+\newcommand{\ENDIF}{\pseudocode{endif}}
+\newcommand{\ENDFOR}{\pseudocode{endfor}}
+\newcommand{\DO}{\pseudocode{do}}
+\newcommand{\OD}{\pseudocode{od}}
+\newcommand{\ENDWHILE}{\pseudocode{endwhile}}
+\newcommand{\BEGIN}{\pseudocode{begin}}
+\newcommand{\END}{\pseudocode{end}}
+\newcommand{\PROC}{\pseudocode{procedure}}
+\newcommand{\CALL}{\pseudocode{call}}
+\newcommand{\VAL}{\pseudocode{value}}
+\newcommand{\VALRES}{\pseudocode{value\!-\!result}}
+\newcommand{\RES}{\pseudocode{result}}
+\newcommand{\RETURN}{\pseudocode{return}}
+\newcommand{\REPEAT}{\pseudocode{repeat}}
+\newcommand{\DOWNTO}{\pseudocode{downto}}
+\newcommand{\TO}{\pseudocode{to}}
+
+\newcommand{\function}{\pseudocode{function}}
+\newcommand{\operation}{\pseudocode{operation}}
+
+\newcommand{\newo}{\pseudocode{new}}
+\renewcommand{\int}{\pseudocode{int}}
+
+
+
+%% Algorithm names
+
+\newcommand{\ANAME}[1]{\ensuremath{\mathsf{#1}}}
+
+\newcommand{\compRepFor}{\ANAME{ComputeRepairFormula}}
+\newcommand{\compRepForA}[1]{\ANAME{ComputeRepairFormula}(#1)}
+
+\newcommand{\initRepFor}{\ANAME{InitializeRepairFormula}}
+\newcommand{\initRepForA}[1]{\ANAME{InitializeRepairFormula}(#1)}
+
+\newcommand{\conjoin}{\ANAME{conjoin}}
+\newcommand{\conjoinA}[1]{\ANAME{conjoin}(#1)}
+
+\newcommand{\propagate}{\ANAME{propagate}}
+\newcommand{\propagateA}[1]{\ANAME{propagate}(#1)}
+
+
+\newcommand{\repair}{\ANAME{Repair}\xspace}
+
+
+
+%\newcommand{\marked}{\ensuremath{\mathit{marked}}}
+
+
+
+
+
+
+

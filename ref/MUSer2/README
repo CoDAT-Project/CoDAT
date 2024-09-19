@@ -1,0 +1,109 @@
+********************************************************************************
+MUSer2 (MUS extractor v2): MUS, GMUS, VMUS, IVMUS, GVMUS, MES extraction tool.
+
+MUSer2 is an MUS and group-MUS extraction tool that implements hybrid MUS 
+extraction algorithm HYB [1] enhanced with Recursive Model Rotation (RMR) [2].
+This release also includes the functionality to compute variable-MUSes and 
+extensions (IVMUS and GVMUS) described in [3], and well as the functionality
+to compute MES (minimal equivalent subsets) of satisfiable CNF formulas [4].
+
+Most of the theory behind the tool is presented in
+
+[1] J. Marques-Silva and I. Lynce (2011) On Improving MUS Extraction Algorithms.
+In: Proc. SAT 2011, pp. 159-173
+
+[2] A. Belov and J. Marques-Silva (2011) Accelerating MUS Extraction with 
+Recursive Model Rotation. In: Proc. FMCAD 2011, pp. 37-40
+
+[3] A. Belov, A. Ivrii, A. Matsliah and J. Marques-Silva (2012) On Efficient 
+Computation of Variable MUSes. In: Proc. SAT 2012.
+
+[4] A Belov, M. Janota, I. Lynce, and J. Marques-Silva (2012) On Computing 
+Minimal Equivalent Subformulas. In: Proc. CP 2012 (to appear).
+
+This public release for teaching and research use only. Release identification:
+     changeset: 62b20d49496c; release: 2012706; built: 2012-Jul-06
+
+Please contact Anton Belov (anton.belov@ucd.ie) in case of bugs or questions.
+
+Web: http://logos.ucd.ie/web/doku.php?id=muser
+
+MUSer2 can use a number of different SAT solvers as a back-end. The current 
+release is configured to work with:
+
+1. Minisat 2.2
+   N. Een and N. Sörensson (2003) An Extensible SAT-solver. In: Proc. SAT 2003.
+   N. Een and A. Biere (2005) Effective Preprocessing in SAT through Variable 
+   and Clause Elimination. In: Proc. SAT 2005. 
+
+2. picosat 935
+   A. Biere (2008) PicoSAT Essentials. JSAT, vol. 4, 2008.
+
+From our experience, in the context of MUS extraction picosat 935 appears to be 
+more efficient, while in the context of group-MUS extraction this is the case
+for Minisat 2.2.
+
+********************************************************************************
+
+Usage: run-muser2 [options] input.cnf       -- for MUS extraction  
+       run-muser2 -grp [options] input.gcnf -- for group-MUS extraction
+       run-muser2 -var [options] input.cnf  -- for variable-MUS extraction
+       run-muser2 -var -grp [options] input.vgcnf -- for IVMUS and GVMUS 
+                                                     extraction
+       run-muser2 -irr [options] input.cnf  -- for MES computation
+
+Input files may be gzipped (in which case the extension .gz should be appended
+to the file name). Note that run-muser2 is a script that sets up various paths
+prior to kicking off muser2 executable. Please see IMPORTANT NOTE for 
+explanations.
+
+Some example commands lines are (the example files are in ./examples directory):
+
+./run-muser2 -picosat ../examples/c499_gr_2pin_w5.shuffled.cnf.gz
+./run-muser2 -grp ../examples/edn_9789_8.cnf_0.51000000.unsat.gcnf.gz
+./run-muser2 -var ../examples/c499_gr_2pin_w5.shuffled.cnf.gz
+
+The .vgcnf format is an extension of CNF format that allows to group variables 
+into disjoint groups identified by their variable group-IDs (vgroups/vgroup-ID).
+The idea is similar to that of .gcnf format: 
+
+p vgcnf <num-vars> <num-clauses> <num-vgroups>
+...
+clauses (as in .cnf)
+...
+{vgroup-ID1} var11 var12 ... var1K 0
+{vgroup-ID2} var21 var22 ... var2K 0
+...
+
+It is assumed that each variable belongs to exactly one vgroup (i.e. the vgroups
+are not intersecting, and every variable has a vgroup). Vgroup {0} is a special
+group of "uninteresting" variables. The parser in muser2 is a bit lenient -- if
+a variable has not been assigned a vgroup-ID, it assumes that it belongs to 
+vgroup 0. Please look at ./examples/b21_242.vgcnf.gz. Sample command line:
+ 
+./run-muser2 -var -grp ../examples/b21_242.vgcnf.gz
+
+For MES computation the default HYB-like algorithm is typically inefficient, and
+so we recommend to use the chunking mode [4] (option: -chunk X), as well as an 
+improved version of model rotation geared for (option: -imr) [4]. You may want
+to try different chunk sizes, typically 1000 and 4000 works well, but of course
+it depends on the instance. Sample command line:
+
+./run-muser2 -irr -chunk 1000 -imr ../examples/bw_large.a.cnf
+
+Please invoke run-muser2 with no arguments for the list of options.
+
+
+********************************************************************************
+
+IMPORTANT NOTE: 
+
+For various reasons, picosat 935 is compiled into a shared library that is 
+loaded at run-time (using dlopen(3)), and so the library should should be 
+locatable by system's dynamic loader (see dlopen(3) for full details). The 
+easiest way is to set environment variable LD_LIBRARY_PATH -- run-muser2 script 
+does just this. Please adjust it if needed.
+
+The distribution also includes statically linked versions of Linux executable 
+-- these can be invoked directly, of course, however these do *not* include 
+picosat.

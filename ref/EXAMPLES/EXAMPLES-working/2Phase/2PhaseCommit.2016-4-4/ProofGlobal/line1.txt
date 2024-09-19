@@ -1,0 +1,25 @@
+Pair-property
+
+$P_0$ commits only if $P_{n-1}$ submits
+
+=========================================
+
+
+n=4:
+
+cm0 --> sb3
+
+A( (cm0 => AF(sb3)) W sb3)
+
+
+======================
+
+n=3:
+
+cm0 --> sb2
+
+A( (cm0 => AF(sb2)) W sb2)
+
++++++++++++++++++++++++++++++++++++++
+
+Eshmun model checked in pair machine P4 || P0

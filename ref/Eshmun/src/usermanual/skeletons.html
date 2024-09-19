@@ -1,0 +1,96 @@
+<html>
+<head>
+	<title>Eshmun: User Manual</title>
+</head>
+<body>
+    <table width="750px">
+    <tr>
+    <td valign="top" width="200px" style="padding-left: 20px; padding-top: 30px; border-right: solid 1px;">
+        <h2>Navigation</h2>
+        <p>
+        <a href="graph.html">Manipulate Structure</a> <br/><br/>
+        <a href="concurrent.html">Concurrent Kripke Structure</a> <br/><br/>
+        <a href="skeletons.html">Synchronization Skeletons</a> <br/><br/>
+        <a href="io.html">Saving and Loading</a> <br/><br/>
+        <a href="export.html">Exporting</a> <br/><br/>
+        <a href="zoom.html">Search and Zoom</a> <br/><br/>
+        <a href="logic.html">Logic and Syntax</a> <br/><br/>
+        <a href="check.html">Model Check</a> <br/><br/>
+        <a href="repair.html">Model Repair</a> <br/><br/>
+        <a href="abstraction.html">Abstractions</a> <br/><br/>
+        <a href="coloring.html">Transition Coloring</a> <br/><br/>
+        <a href="script.html">Scripting</a> <br/><br/>
+        <a href="refinement.html">Refinement</a> <br/><br/>
+        <a href="unsat.html">Unsat Core</a> <br/><br/>
+        <!-- Add Section -->
+        </p>
+    </td>
+    <td valign="top" style="padding-left: 50px; padding-top: 30px;">
+        <h2>Synchronization Skeletons</h2>
+	
+		<p>
+		Eshmun supports expressing models/programs as synchronization skeletons. Synchronization skeletons are simple structure,
+		each process has a set of states connected with transitions, with a special start state. Each transition has a guard, which
+		is a boolean formula that express when a transition can be taken and what its effects are. The boolean formula is written in
+		terms of the state of the other processes (hence the name "synchronization"), while the effect is usually an assignment to
+		a shared variable. 
+		</p> <br/>
+		
+        <p>
+        <b>Model/Program Translation</b>
+        <p>
+        Eshmun can automatically translate a program from a Kripke Structure to a Synchronization skeleton (and vice-versa). To translate a 
+        Kripke structure (concurrent or single) to a synchronization skeleton, go to Tools menu -> To Synchronization Skeleton. To translate
+        a Synchronization skeleton to a Kripke Structure, go to Tools menu -> Generate Kripke Structure, a pop-up will appear asking if the
+        generated structure should be single or concurrent.
+        </p> <br/>
+                
+        <p>
+        <b>Manipulating Synchronization Skeletons</b>
+        <p>You can also create a synchronization skeleton from scratch. Go to File Menu -> New -> Synchronization skeleton. Saving and loading
+        works as usual (check the next section for more information).</p>
+        <p>The same controls mentioned in the first section apply for editing the skeleton (including Undo, redo, edit, auto-format, zoom, ...).
+        Check the respective sections for more information.</p> <br/>
+        </p>
+        
+        <p>
+        <b>Editing Guards</b>
+        <p>Additionally, you can edit/create guards. When creating a new transition, a pop-up will show asking for the guard. To edit a transition's
+        guard, select the transition and go to Edit Menu -> Edit (or alternatively right click on the transition and click Edit in the pop-up menu).
+        </p> <br/>
+        </p>
+        
+        <p>
+        <b>Guard Syntax</b> 
+        <ul>
+        <li><b>Guards</b> are a list of <i>boolean formulae</i> with <i>effects</i> and <i>compositions</i>.</li> 
+        
+        <li><b>Boolean Formulae</b> follows the syntax and precedence rules mentioned under <a href="logic.html">Logic and Syntax</a> section. </li>
+        
+        <li><b>Effects</b> are separated from the boolean formula with an ->, and have the following syntax 
+        <i>&lt;variable name&gt;</i> { <i>&lt;process index&gt;</i>, <i>&lt;process index&gt;</i>, ... } := <i>&lt;value&gt;</i>;
+        Multiple effects can be combined by writing them after one another (separated by a ;). You can also use the special value bottom
+        to un-set the value of a variable, bottom can be written in the editor using <b>/|\</b>. 
+        </li>
+        
+        <li><b>Composing Guards</b> can be done by using one of the two operator: GUARD_AND or GUARD_OR. GUARD_AND indicates that
+        for a transition to be taken, both guards must be evaluate to true, and both effects will occur, it is a short cut for
+        writing a single guard as a conjunction of the two guards and combining the two effects. GUARD_OR indicates that for the transition
+        to be taken, one of the guards must evaluate to true (at least), and guards that evaluate to true will have their effects executed.
+        GUARD_AND and GUARD_OR can be written in the editor as _&_ and _|_. They will appear as a times and a plus inside a circle respectively.
+        </li>
+        
+        <li><b>Actions in Guards</b> You can reference actions inside guards, actions must be preceded with the @ symbol. The @ symbol is not
+        part of the action name; it serves only to distinguish actions from other labels/propositions. You can compose actions with other 
+        actions and labels using the usual boolean and guard connectives. Actions can only appear inside the guard's formulae and not inside the 
+        effects. For exmaple (@a1 & T1 -> P{1,2}:=0) indicates that this guard is synchronized by the action a1.<br/></li>
+          
+        </ul>
+        </p>
+        
+        <br/><br/><br/><br/>
+    </td>
+    </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,1 @@
+preB::true;wait:wt:false;timeout:tmt:false;posAck:ack:false;negAck:nack:false;fail:fl:false;success:sc:false;postB::false;send:snd:false;***t1:preB:send;t2:send:wait;t3:wait:timeout;t4:wait:negAck;t5:wait:posAck;t6:posAck:success;t7:negAck:fail;t8:timeout:fail;t9:fail:postB;t10:success:postB;t_1413275508113:postB:postB;t_1413275529481:posAck:fail;***AG(!(ack) | AF(sc))

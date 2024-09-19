@@ -1,0 +1,567 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%% PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\documentclass[a4paper,twoside,english]{amsart}
+\usepackage{amsfonts,amsthm,amsmath,amssymb,latexsym,comment}
+
+%\usepackage[T1]{fontenc}
+%\usepackage[latin1]{inputenc}
+\usepackage{setspace}
+\usepackage{verbatim}
+\usepackage{color}
+%\usepackage{algorithmic}
+%\usepackage{algorithm}
+\usepackage{xspace}
+\usepackage{graphics}
+%\usepackage{floatflt}
+%\usepackage{wrapfig}
+\usepackage{url,cite}
+
+%%% SIMONS PACKAGES
+%\usepackage{graphicx,color}
+%\usepackage{amsmath,amscd}
+% \usepackage{enumitem}
+% \usepackage{wrapfig}
+% \usepackage{subfigure}
+% \usepackage{picins}
+ \usepackage{tikz}
+ \usetikzlibrary{shapes,arrows}
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%% IDENTIFIER MACROS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\IDENT}[1]{\ensuremath{\mathit{#1}}}
+\newcommand{\EMTH}[1]{\ensuremath{#1}\xspace}
+
+
+\newcommand{\spc}{\ensuremath{\eta}}           % specification formula
+\newcommand{\spcb}{\ensuremath{\eta_B}}      % box specification formula
+\newcommand{\cfm}{\ensuremath{\vphi}}         % coupling formula
+\newcommand{\MA}{\ensuremath{M_A}}            % abstract structure 
+%\newcommand{\BA}{\ensuremath{B_A}\xspace}              % abstract box 
+\newcommand{\BA}{\EMTH{\IDENT{B}_A}}
+%\newcommand{\BA}{\IDENT{B_A}}
+\newcommand{\BD}{\ensuremath{\widehat{B}}\xspace}         % dreived box 
+\newcommand{\BM}{\ensuremath{B_M}\xspace}          % situated box
+\newcommand{\preB}{\ensuremath{pre_B}\xspace}      % interface state for box
+\newcommand{\postB}{\ensuremath{post_B}\xspace}
+\newcommand{\inB}{\EMTH{\IDENT{in}_B}}
+\newcommand{\stB}{\EMTH{\IDENT{start}_B}}
+\newcommand{\intB}{\EMTH{\IDENT{int}_B}}
+\newcommand{\rexB}{\EMTH{\IDENT{O}_B^r}}   % reachable exit states of B
+\newcommand{\exB}{\EMTH{\IDENT{O}_B}}   % exit states of B
+
+\newcommand{\mscc}{\EMTH{\IDENT{C}}}   % mscc collapse of M
+\newcommand{\BN}{\ensuremath{\widehat{B}}\xspace}         % B           collapsed to a single node
+
+\newcommand{\APB}{\EMTH{\IDENT{\AP}_B}}   % atomic props of B
+\newcommand{\APC}{\EMTH{\IDENT{\AP}_C}}   % atomic props of coupling formula 
+\newcommand{\APS}{\EMTH{\IDENT{\AP}_\spc}}   % atomic props of spec formula 
+\newcommand{\APF}{\EMTH{\IDENT{\AP''}}}   % atomic props in weak forward sim definition
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%% FROM MOUHAMMADS THESIS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\evpa}{\ensuremath{\equiv_{p,a}}}
+\newcommand{\evpna}{\ensuremath{\equiv_{p}}}
+\newcommand{\evsa}{\ensuremath{\equiv_{s,a}}}
+\newcommand{\evsna}{\ensuremath{\equiv_{s,p}}}
+
+\newcommand{\eqc}[1]{\ensuremath{[#1]}}
+
+\newcommand{\stt}{~|~}
+
+\newcommand{\AS}{\mathit{AS}}
+\newcommand{\SUB}{\mathit{SUB}}
+
+\newcommand{\ovl}{\overline}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% REPAIR SPECIFIC MACROS %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Eshmun}{\textsf{Eshmun}\xspace}
+
+\newcommand{\tool}[1]{\texttt{#1}}
+\newcommand{\st}[1]{\tool{#1}}
+
+
+\newcommand{\rprob}[2]{\ensuremath{\tpl{#1,#2}}}   %repair problem: rprob{M}{\eta}
+
+\newcommand{\rfor}[2]{\ensuremath{\mathit{repair(#1,#2)}}}   %repair formula: rfor{M}{\eta}
+\newcommand{\repfor}{\ensuremath{\mathit{repair}}}
+
+\newcommand{\rmod}[2]{\ensuremath{\mathit{model(#1,#2)}}}    % repaired model: rmod{M}{\Val}
+\newcommand{\repmod}{\ensuremath{\mathit{model}}}
+
+\newcommand{\lab}[1]{\ensuremath{\mathcal L}(#1)}
+\newcommand{\new}[1]{\ensuremath{\mathit{new}(#1)}}
+\newcommand{\old}[1]{\ensuremath{\mathit{old}(#1)}}
+
+\newcommand{\kdef}{\ensuremath{(S_0, S, R, L, \AP)}\xspace}
+\newcommand{\kripkedef}{\ensuremath{(S_0, S, R, L, \AP)}\xspace}
+
+\newcommand{\kdefp}{\ensuremath{(S'_0, S', R', L', \AP)}\xspace}
+\newcommand{\kripkeprimedef}{\ensuremath{(S'_0, S', R',L',\AP)}\xspace}
+
+\newcommand{\kdefpp}{\ensuremath{(S''_0, S'', R'', L'', \AP)}\xspace}
+
+\newcommand{\rkdef}{\ensuremath{(S_0, S, R, L, \AP)}\xspace} % repaired kripke
+\newcommand{\qkdef}{\ensuremath{(\ovl{S}_0, \ovl{S}, \ovl{R}, \ovl{L},\AP)}\xspace} % quotient kripke def
+\newcommand{\akdef}{\ensuremath{(\ovl{S}_0, \ovl{S}, \ovl{R}, \ovl{L},\APS)}\xspace} % abstract kripke def
+
+\newcommand{\qM}{\ensuremath{\ovl{M}}\xspace} % quotient kripke
+\newcommand{\aM}{\ensuremath{\ovl{M}}\xspace} % abstract kripke 
+\newcommand{\rM}{\ensuremath{M'}\xspace} % repaired kripke 
+
+
+
+
+
+\newcommand{\prkdef}[1]{\ensuremath{(S_0^{#1}, S_{#1}, R_{#1}, L_{#1}, \AP_{#1})}\xspace} % pair kripke
+
+\newcommand{\FL}{\ensuremath{\mathit{sub}}}
+\newcommand{\cgsdef}{\ensuremath{(s_0, S, R, L,\sigma)}\xspace}
+
+\newcommand{\Val}{\mathcal{V}}
+
+
+
+\newcommand{\fsim}{\le}
+
+\newcommand{\lfsim}[1]{\le_{#1}}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%% PHONE CALL EXAMPLE%%%%%%%%%%%%%%%%%%%%%%%%%5
+\newcommand{\LBL}[1]{\mathit{#1}}
+
+\newcommand{\snd}{\LBL{snd}}
+\newcommand{\wt}{\LBL{wt}}
+\newcommand{\tmt}{\LBL{tmt}}
+\newcommand{\nk}{\LBL{nk}}
+\newcommand{\ack}{\LBL{ack}}
+
+\newcommand{\ok}{\LBL{ok}}
+\newcommand{\fl}{\LBL{fl}}
+
+\newcommand{\suc}{\LBL{sc}}
+\newcommand{\ab}{\LBL{ab}}
+
+
+
+%%%%%%%%%%%%%%%%%%%% BARRIER SYNC EXAMPLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\SA}{\LBL{sa}}
+\newcommand{\EA}{\LBL{ea}}
+\newcommand{\SB}{\LBL{sb}}
+\newcommand{\EB}{\LBL{eb}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MISC %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\newcommand{\pkg}[1]{\texttt{#1}\xspace}
+
+
+\newcommand{\cmnt}{\ensuremath{\rhd}}
+\newcommand{\case}[1]{\ul{\textit{#1}}}
+
+\newcommand{\ie}{i.e.,\xspace}
+\newcommand{\eg}{e.g.,\xspace}
+\newcommand{\wrt}{w.r.t.\xspace}
+\newcommand{\etal}{et.~al.\xspace}
+
+
+\newcommand{\remove}[1]{}
+
+\newcommand{\KS}{Kripke strucuture\xspace}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ABBREVIATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Lists
+\newcommand{\be}{\begin{itemize}}
+\newcommand{\ee}{\end{itemize}}
+\newcommand{\bn}{\begin{enumerate}}
+\newcommand{\en}{\end{enumerate}}
+
+
+%% Theorem-like Environments
+\newcommand{\bp}{\begin{proposition}}
+\newcommand{\ep}{\end{proposition}}
+\newcommand{\bl}{\begin{lemma}}
+\newcommand{\el}{\end{lemma}}
+\newcommand{\bco}{\begin{corollary}}
+\newcommand{\eco}{\end{corollary}}
+\newcommand{\bt}{\begin{theorem}}
+\newcommand{\et}{\end{theorem}}
+\newcommand{\bpr}{\begin{proof}}
+\newcommand{\epr}{\end{proof}}
+\newcommand{\bd}{\begin{definition}}
+\newcommand{\ed}{\end{definition}}
+
+
+%% Equation Environments
+\newcommand{\beqn}{\begin{centeqn}}
+\newcommand{\eeqn}{\end{centeqn}}
+\newcommand{\beqnnbsp}{\begin{centeqn-nbsp}}
+\newcommand{\eeqnnbsp}{\end{centeqn-nbsp}}
+\newcommand{\bleqn}[1]{\begin{centlabeqn}{#1}}
+\newcommand{\eleqn}{\end{centlabeqn}}
+\newcommand{\bleqnnbsp}[1]{\begin{centlabeqn-nbsp}{#1}}
+\newcommand{\eleqnnbsp}{\end{centlabeqn-nbsp}}
+
+%% Misc
+\newcommand{\bc}{\begin{center}}
+\newcommand{\ec}{\end{center}}
+\newcommand{\ul}{\underline}
+\newcommand{\bs}{\bigskip}
+\newcommand{\ms}{\medskip}
+\renewcommand{\ss}{\smallskip}
+
+\newcommand{\bfg}{\begin{figure}}
+\newcommand{\efg}{\end{figure}}
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%% EQUATION ENVIRONMENTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{centeqn}	% centered equation environment
+   {{\ss\\ \hspace*{\fill}}} 
+   {\hspace*{\fill}\ss\\}
+
+\newsavebox{\EqnLabel}
+\newenvironment{centlabeqn}[1]		% centered labeled equation environment
+   {\sbox{\EqnLabel}{#1}
+    {\\ \hspace*{\fill}}
+   } 
+   {\hfill{\makebox[0in][r]{\usebox{\EqnLabel}}}\ms\\}
+
+\newenvironment{centeqn-nbsp} % centered equation - no vertical space at the bottom
+   {{\ms\\ \hspace*{\fill}}}
+   {\hspace*{\fill}}
+
+
+
+%%%%%%%%%%%%%%%%%%%% FORMATTING COMMANDS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\intrdef}{\emph}	
+\newcommand{\intr}{\emph}	
+\newcommand{\empi}{\textit}	
+\newcommand{\empb}{\textbf}	
+				
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%% GENERAL MATH SYMBOLS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\setIns}[2]{\ensuremath{ #1 \gt #1 \un #2 }}
+\newcommand{\setInsS}[2]{\ensuremath{ #1 \gt #1 \un \set{#2} }}
+\newcommand{\setDel}[2]{\ensuremath{ #1 \gt #1 - #2 }}
+\newcommand{\setDelS}[2]{\ensuremath{ #1 \gt #1 - \set{#2} }}
+
+
+\newcommand{\mucalc}{{\ensuremath{\mu}-calculus }}
+\newcommand{\ttt}{\mathit{tt}}
+\newcommand{\fff}{\mathit{ff}}
+\renewcommand{\tt}{\ensuremath{\mathit{tt}}}     % semantic true and false
+\newcommand{\ff}{\ensuremath{\mathit{ff}}}
+
+
+\newcommand{\ATLA}{\ll\!A\!\gg}
+\newcommand{\ATLAneg}{\ll\!\Sigma - A\!\gg}
+\newcommand{\Gg}{{\mathcal{G} }}
+\newcommand{\vphi}{\varphi}
+
+
+\newcommand{\ba}{\bigwedge}	
+\newcommand{\AND}{\bigwedge}
+\newcommand{\INT}{\bigcap}
+\newcommand{\bo}{\bigvee}	
+\newcommand{\OR}{\bigvee}
+\newcommand{\UN}{\bigcup}
+\newcommand{\PA}{/\!/}		% parallel assignment
+
+\newcommand{\oneton}{\{1, \ldots, n\}}
+\newcommand{\rng}[2]{\{#1, \ldots, #2\}}
+
+\newcommand{\ar}{\rightarrow}	% abbreviated rightarrow
+\newcommand{\cat}{\frown}
+\newcommand{\choice}{\mbox{$[\hspace*{-1.0pt}]$}}
+\renewcommand{\d}{\, : \,}	% separator in quantified formulae
+\newcommand{\df}{\mbox{$\:\stackrel{\rm df}{=\!\!=}\:$}}
+\newcommand{\ev}{\equiv}
+\newcommand{\ex}{\exists}
+\newcommand{\fa}{\forall}
+\newcommand{\halfind}{\hspace*{1.5em}}
+\newcommand{\ifof}{\Longleftrightarrow}	
+%\newcommand{\iff}{\Leftrightarrow}	
+\newcommand{\imp}{\Rightarrow}		
+%\newcommand{\implies}{\imp}		
+\newcommand{\ind}{\hspace*{3.0em}}
+\newcommand{\ints}{\cap}
+\renewcommand{\l}{\ell}
+\newcommand{\la}[1]{\mbox{$\, \stackrel{#1}{\rightarrow} \,$}}
+
+\newcommand{\lra}{\mbox{$\longrightarrow$}}
+
+\newcommand{\mstr}[1]{\ensuremath{`` #1 \mbox{''} }}       % string in math mode
+
+\newcommand{\pind}{\hspace*{3.0em}}
+\newcommand{\pl}{\!\parallel\!}
+\newcommand{\pj}{\ensuremath{\upharpoonright}}
+\newcommand{\s}{\mbox{$\hspace{-1pt}-\hspace{-2pt}$}}
+\newcommand{\sat}{\models}
+\newcommand{\set}[1]{\ensuremath{\{#1\}}}
+\newcommand{\tpl}[1]{\ensuremath{\langle#1\rangle}}
+
+
+%\newcommand{\spc}{\mbox{\vspace{-0.25in}}}
+%%\newcommand{\st}[2]{\mbox{$\stackrel{#1}{#2}$}}	% abbreviated stackrel
+\newcommand{\sub}{\subseteq}
+\newcommand{\tl}[1]{\mbox{$\tilde{#1}$}}% abbreviated tilde
+\newcommand{\un}{\cup}
+\newcommand{\up}{\mbox{$\hspace{-0.1em}\uparrow\hspace{-0.1em}$}}
+\newcommand{\dn}{\mbox{$\hspace{-0.1em}\downarrow\hspace{-0.1em}$}}
+
+\newcommand{\struct}[2]{\raisebox{-0.1in}{$\stackrel { \displaystyle
+#1} {\scriptstyle #2}\,$}}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% LIST ENVIRONMENTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{lst}{\begin{list}	
+                       {}
+                       {\setlength{\topsep}{0em}
+                        \setlength{\itemsep}{0em}
+			\setlength{\leftmargin}{0.5in}
+		     }}
+                    {\end{list}}
+
+\newenvironment{blst}{\begin{list}		% bullet list
+                       {--}
+                       {\setlength{\topsep}{0em}
+                        \setlength{\itemsep}{0em}
+			\setlength{\leftmargin}{0.25in}
+		     }}
+                    {\end{list}}
+
+\newcounter{levelone}
+\newenvironment{nlst1}{\begin{list}	% 1'st level enumerated list
+                       {\arabic{levelone}.}
+                       {\usecounter{levelone}
+			\setlength{\topsep}{0em}
+                        \setlength{\itemsep}{0em}
+			\setlength{\leftmargin}{0.25in}
+		     }}
+                    {\end{list}}
+
+
+\newcounter{leveltwo}
+\newenvironment{nlst2}{\begin{list}	% 2'nd level enumerated list
+                       {(\alph{leveltwo})}
+                       {\usecounter{leveltwo}
+			\setlength{\topsep}{0em}
+                        \setlength{\itemsep}{0em}
+			\setlength{\leftmargin}{0.4in}
+		     }}
+                    {\end{list}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MISC  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\renewcommand{\S}{{\cal S}}
+\newcommand{\Fa}{\ensuremath{\mathcal F}\xspace}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% MISC ENVIRONMENTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \newenvironment{proof}{\vspace{-1.0ex}\textit{Proof.} }		% Proof environment
+%                       {\hfill{$\Box$}}
+
+
+
+
+
+
+
+% \newcommand{\stof}[1]{\{\hspace*{-0.3em}|#1|\hspace*{-0.3em}\}}
+% 				 % state to formula conversion
+% 				 % for local states (intended
+% 				 % to replace \F above
+
+
+% \newcommand{\qf}[3]{#1 #2 \d ( #3 )}   %% quatified formula --
+% 				       %% currently unused
+
+
+% \newcommand{\CL}{\mathit{CL}}
+
+
+
+%%% SIMONS REFERENCES MACROS
+
+\newcommand{\defn}[1]{Def.~\ref{defn:#1}}
+\newcommand{\sfig}[1]{Figure~\ref{fig:#1}}    %start of sentence
+\newcommand{\fig}[1]{Fig.~\ref{fig:#1}}
+\newcommand{\tab}[1]{Tab.~\ref{tab:#1}}
+\newcommand{\eq}[1]{(\ref{eq:#1})}
+\newcommand{\res}[1]{(\ref{res:#1})}
+\newcommand{\secn}[1]{Sect.~\ref{secn:#1}}
+\newcommand{\rem}[1]{Rem.~\ref{rem:#1}}
+\newcommand{\ntn}[1]{Not.~\ref{ntn:#1}}
+\newcommand{\lem}[1]{Lem.~\ref{lem:#1}}
+\newcommand{\cor}[1]{Cor.~\ref{cor:#1}}
+\newcommand{\thm}[1]{Th.~\ref{thm:#1}}
+\newcommand{\app}[1]{App.~\ref{app:#1}}
+\newcommand{\axs}[1]{Ax.~\ref{ax:#1}}
+\newcommand{\axss}[2]{Ax.~\ref{ax:#1}, \ref{ax:#2}}
+\newcommand{\ax}[1]{Ax.~\ref{ax:#1}}
+\newcommand{\prop}[1]{Prop.~\ref{prop:#1}}
+\newcommand{\clause}[1]{Clause~\ref{clause:#1}}
+
+
+
+%%%%%%%%%%%%%%% TEMPORAL LOGIC SYMBOLS --- CTL* and CTL %%%%%%%%%%%%%%%%%%%
+\newcommand{\TLM}[1]{\ensuremath{\mathsf{#1}}}   % TLM = temporal logic modality
+
+\newcommand{\yld}{\ensuremath{\vdash_{CTL}}}
+\newcommand{\satCTL}{\ensuremath{\models}}
+\newcommand{\satf}{\models_{\f}}
+\newcommand{\AP}{\ensuremath{\mathit{AP}}\xspace}
+\newcommand{\ACTL}{\ensuremath{\mathrm{ACTL}}\xspace}  
+\newcommand{\ACTLm}{\mbox{$\mathrm{ACTL}^-$}}  
+\newcommand{\ACTLS}{\mbox{$\mathrm{ACTL}^*$}}  
+\newcommand{\ATL}{\ensuremath{\mathrm{ATL}}\xspace}  
+\newcommand{\CTL}{\ensuremath{\mathrm{CTL}}\xspace}  
+\newcommand{\CTLS}{\ensuremath{\mathrm{CTL}^*}\xspace}
+\newcommand{\SH}{\mbox{$\cal SH$}}  
+
+\newcommand{\A}{\TLM{A}}
+\newcommand{\E}{\TLM{E}}
+\newcommand{\F}{\TLM{F}}
+\newcommand{\G}{\TLM{G}}
+\newcommand{\U}{\TLM{U}}
+\newcommand{\Uw}{\TLM{Uw}}
+\newcommand{\V}{\TLM{V}}
+\newcommand{\W}{\TLM{W}}
+\newcommand{\X}{\TLM{X}}
+\newcommand{\Y}{\TLM{Y}}
+
+\newcommand{\true}{\ensuremath{\mathsf{true}}\xspace}
+\newcommand{\false}{\ensuremath{\mathsf{false}}\xspace}
+
+\newcommand{\AG}{\TLM{AG}}
+\newcommand{\EG}{\TLM{EG}}
+\newcommand{\AF}{\TLM{AF}}
+\newcommand{\EF}{\TLM{EF}}
+\newcommand{\AU}{\TLM{AU}}
+\newcommand{\EU}{\TLM{EU}}
+\newcommand{\AV}{\TLM{AV}}
+\newcommand{\EV}{\TLM{EV}}
+\newcommand{\AX}{\TLM{AX}}
+\newcommand{\EX}{\TLM{EX}}
+
+
+
+%\newcommand{\ea}{\raisebox{0.2ex}{$\stackrel{\infty}{\textsf{G}}$}}  %10ptfont
+%\newcommand{\ea}{\raisebox{0.22ex}{$\stackrel{\infty}{\textsf{G}}$}}
+\newcommand{\ea}{\raisebox{0ex}{$\stackrel{\infty}{\textup{\textsf{G}}}$}}
+
+%\newcommand{\io}{\raisebox{0.2ex}{$\stackrel{\infty}{\textup{\textsf{F}}}$} %10ptfont
+%\newcommand{\io}{\raisebox{0.22ex}{$\stackrel{\infty}{\textsf{F}}$}}
+\newcommand{\io}{\raisebox{0ex}{$\stackrel{\infty}{\textup{\textsf{F}}}$}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%% THEOREM-LIKE ENVIRONMENT DECLARATIONS %%%%%%%%%%%%%%%%%%%
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}[lemma]{Proposition}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{claim}{Claim}
+\newtheorem{corollary}{Corollary}
+\newtheorem{introtheorem}{Theorem}
+\newtheorem{assumption}{Assumption}
+
+
+
+\remove{
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\newtheorem{definition}{Definition}
+
+\newtheorem{subtheorem}{Theorem}[subsection]
+\newtheorem{sublemma}[subtheorem]{Lemma}
+\newtheorem{subproposition}[subtheorem]{Proposition}
+\newtheorem{subcorollary}[subtheorem]{Corollary}
+
+\newtheorem{subdefinition}[subtheorem]{Definition}
+
+
+\newtheorem{observation}{Observation}
+
+%%%\newdef{example}{Example}  % CURRENTLY UNUSED
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% COMPLEXITY THEORY %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\ELTIME}{\textsc{Elementary}\xspace}
+\newcommand{\DTIME}[1]{\ensuremath{\mathrm{DTime(}#1\mathrm{)}}}
+\newcommand{\NTIME}[1]{\ensuremath{\mathrm{NTime(}#1\mathrm{)}}}
+\newcommand{\DSPACE}[1]{\ensuremath{\mathrm{DSpace(}#1\mathrm{)}}}
+\newcommand{\ExpTime}{\textsc{ExpTime}\xspace}
+\newcommand{\EXPTIME}[1]{\ensuremath{#1}\ExpTime}
+\newcommand{\EXPSPACE}[1]{\ensuremath{{#1}\mathrm{ExpSpace}}}
+\newcommand{\ATIME}[1]{\ensuremath{\mathrm{ATime(}#1\mathrm{)}}}
+\newcommand{\ASPACE}[1]{\ensuremath{\mathrm{ASpace(}#1\mathrm{)}}}
+\newcommand{\AEXPTIME}[1]{\ensuremath{{#1}\mathrm{AExpTime}}}
+\newcommand{\AEXPSPACE}[1]{\ensuremath{{#1}\mathrm{AExpSpace}}}
+\newcommand{\tSAT}{\ensuremath{\mathrm{3SAT}}\xspace}
+\newcommand{\tcnf}{\ensuremath{\mathrm{3cnf}}\xspace}
+
+
+
+
+
+\def\rien{\rule{0pt}{0pt}}
+\newcommand\NEG{\mathop{\;\;\mathrm{NEG}\;}}
+
+% unused
+%\newcommand*{\pcgsdef}{\ensuremath{(S, \{s_{0}\},  R,L,P,\sigma)}}
+\newcommand*{\markovdef}{\ensuremath{(S, \{s_{0}\},  R,L,P)}}
+\newcommand{\refuter}{\ensuremath{\forall}belard\xspace}
+\newcommand{\verifier}{\ensuremath{\exists}loise\xspace}
+\def\seqcalcZ#1{\begin{array}{@{}c@{}}\rien\vspace{-15pt}\\\displaystyle\frac{}{#1}\vspace{-17pt}\\\rien\end{array}}
+\def\seqcalc#1#2{\begin{array}{@{}c@{}}\rien\vspace{-15pt}\\\displaystyle\frac{#1}{#2}\vspace{-17pt}\\\rien\end{array}}
+\def\seqcalcT#1#2#3{\begin{array}{@{}c@{}}\rien\vspace{-15pt}\\\displaystyle\frac{#1\qquad#2}{#3}\vspace{-17pt}\\\rien\end{array}}

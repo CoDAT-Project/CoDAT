@@ -1,0 +1,46 @@
+n=3:
+
+( (cm0 --> (sb1 & sb2)) & (cm1 --> (sb1 & sb2)) & (cm2 --> (sb1 & sb2)) ) =>
+( (cm0 --> sb1) & (cm1 --> sb2) )
+
+
+(
+A( (cm0 => AF(sb1 & sb2)) W (sb1 & sb2)) & 
+A( (cm1 => AF(sb1 & sb2)) W (sb1 & sb2)) & 
+A( (cm2 => AF(sb1 & sb2)) W (sb1 & sb2)) 
+)
+=>
+(
+A( (cm0 => AF(sb1)) W (sb1)) & 
+A( (cm1 => AF(sb2)) W (sb2))
+)
+
+
+
+PARTS:
+
+=================================
+
+
+(cm0 --> (sb1 & sb2)) => (cm0 --> sb1)
+
+
+
+A( (cm0 => AF(sb1 & sb2)) W (sb1 & sb2) ) 
+=>
+A( (cm0 => AF(sb1)) W (sb1) ) 
+
+shown valid by Eshmun
+
+=====================================
+
+
+
+(cm1 --> (sb1 & sb2))  =>  (cm1 --> sb2) 
+
+
+A((cm1 => AF(sb1 & sb2)) W (sb1 & sb2)) 
+=>
+A((cm1 => AF(sb2)) W (sb2))
+
+shown valid by Eshmun

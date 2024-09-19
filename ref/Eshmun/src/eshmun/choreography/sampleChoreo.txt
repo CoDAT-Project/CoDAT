@@ -1,0 +1,25 @@
+-- This is a comment. A comment must start with 2 dashes "--" and be at the start of a line
+-- Each choreography is written on a single line. The first choreography written will be the global choreography
+-- The first event in the global choreography is the start state
+-- Sequential events are delimited  by '*'
+CH = B1.S > S.R * S.S > {B1.R, B2.R} * B1 + {CH1, E} * CH2 * CH7
+-- Send/Recv messages can have one or multiple receivers
+CH1 = B1.S > S.R * S.S > {B1.R, B2.R}
+-- For Branching, 'E' stands for epsilon, where we "skip" the branching step
+CH2 = B2 + {CH3, E}
+-- Inside while loops, '^' is used instead of '*' for sequential events
+-- To use nested loops, the inner loop must be written in its own choreography
+-- To use branching inside loops, the branching must be written in its own choreography
+CH3 = while(B2.C) {B1.C > Bk.InfR ^ Bk.InfS > B1.R ^ B1.C > B2.R} * CH4
+-- Parallel choreographies are delimited by "||"
+-- To use parallelism, the parallel choreographies must be written in a choreography
+-- Parallel choreographies contain sequential events only
+CH4 = CH5 || CH6
+CH5 = B2.MS > Bk.MR2 * Bk.MS2 > S.R
+CH6 = B1.MS > Bk.MR1 * Bk.MS1 > S.R 
+CH7 = CH8 || CH9 || CH10 || CH11
+-- END represents the termination of a process
+CH8 = B1.E > END
+CH9 = B2.E > END
+CH10 = Bk.E > END
+CH11 = S.E > END

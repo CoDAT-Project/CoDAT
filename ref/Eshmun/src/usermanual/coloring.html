@@ -1,0 +1,101 @@
+<html>
+<head>
+	<title>Eshmun: User Manual</title>
+</head>
+<body>
+    <table width="750px">
+    <tr>
+    <td valign="top" width="200px" style="padding-left: 20px; padding-top: 30px; border-right: solid 1px;">
+        <h2>Navigation</h2>
+        <p>
+        <a href="graph.html">Manipulate Structure</a> <br/><br/>
+        <a href="concurrent.html">Concurrent Kripke Structure</a> <br/><br/>
+        <a href="skeletons.html">Synchronization Skeletons</a> <br/><br/>
+        <a href="io.html">Saving and Loading</a> <br/><br/>
+        <a href="export.html">Exporting</a> <br/><br/>
+        <a href="zoom.html">Search and Zoom</a> <br/><br/>
+        <a href="logic.html">Logic and Syntax</a> <br/><br/>
+        <a href="check.html">Model Check</a> <br/><br/>
+        <a href="repair.html">Model Repair</a> <br/><br/>
+        <a href="abstraction.html">Abstractions</a> <br/><br/>
+        <a href="coloring.html">Transition Coloring</a> <br/><br/>
+        <a href="script.html">Scripting</a> <br/><br/>
+        <a href="refinement.html">Refinement</a> <br/><br/>
+        <a href="unsat.html">Unsat Core</a> <br/><br/>
+        <!-- Add Section -->
+        </p>
+    </td>
+    <td valign="top" style="padding-left: 50px; padding-top: 30px;">
+        <h2>Coloring Transitions</h2>
+
+        <p>Eshmun provides the feature of coloring transitions according to their process. 
+        This is a great visual aid and can provide helpful insights about the problem/model at hand.</p> <br/>
+        		
+		<p>
+		Transitions are mapped to process by comparing the labels of the start and end state of the transition, if 
+		labels belonging to more than one process are changed, the transition will not be colored, if no label belonging
+		to a process was changed, the transition will not be colored as well. Labels that do not belong to any process 
+		(shared variables) are neutral and do not affect the coloring. The default color for transitions is black.
+		</p> <br/>
+		
+		<p>Transitions Coloring is disabled by default, to switch it on/off go to View Menu -> Color Transitions.</p> 
+		<br/>
+		
+		<p>Transitions Coloring has 2 coloring mode: <b>Screen Mode</b> and <b>Print Mode</b>. Screen mode is optimal
+		for on screen display. Print Mode is optimized to make colors clear and visible when printing using black and 
+		white (or colored) printers. <b>Note that the mode is automatically set</b>, the screen mode is the default, 
+		and the print mode is switched on when <b>exporting</b> the structure <b>as image</b>.</p>
+		<br/>
+        		
+		<p>
+		<b>Coloring Single Kripke Structures</b>
+		<p>Coloring Single Kripke Structures makes sense for a specific type of Structures. The Structure should have 
+		multiple processes making transitions, these processes need to be identified in the <b>structure name</b>.</p> <br>
+		
+		<p> For example, If we have a single Kripke Structure representing Mutex for 3 processes (named from A to C) a 
+		suitable name would be <b>mutex (A, B, C)</b>. The process name could be a number or a string containing 
+		alphanumeric characters.</p>  		
+		</p> <br/>
+		
+		<p>
+		<b>Coloring Concurrent Kripke Structures</b>
+		<p>Transitions made by the same process will have the same color across all pairs. Note that the larger the 
+		number of processes are, the closer the colors get to one another.</p> 
+		</p>  		
+		</p> <br/>
+		
+		<p>
+		<b>Coloring Actions</b>
+		<p>
+		Transitions with action labels are displayed with a circle in the center, the circle will contain the action
+		label. The circle can also be colored according to the action, each action will have a single fixed color across
+		all pair structures, if a transition is labeled with more than one action, then multiple colors will stack around
+		one another. To turn coloring for actions on/off Go to View Menu -> Color Actions.
+		</p><br/>
+		</p> 
+		
+		<p>
+		<b>Customizing Colors</b>
+		<p>
+		The user can choose the colors to use for each process and action. Sometimes the colors are too close to tell apart
+		easily. Go to View Menu -> Customize Colors. A dialog box will appear with a list of process names and action labels
+		on the left. Choose a process name or action label then pick the desired color from the color palette on the right
+		side. When done, click OK (or cancel to discard changes).
+		</p><br/>
+		</p> 
+		
+		<h2>Displaying Transitions by Process</h2>
+		<p>If the Transition Coloring feature is enabled, one could go further and decide to show/hide specific processes.
+		To do so go to View Menu -> Show/Hide Processes, a sub-menu will appear containing a list of all processes in the
+		current displayed structure, you can choose which processes to show and which processes to hide.</p> <br/>
+		
+		<p>The Show/Hide Processes Menu could be <b>Inactive</b>, in which case, either the transitions coloring feature
+		is not switched on, or the structure does not identify the processes it contains in its name. For help in identifying
+		the processes in the name please go to the <b>Structure Name</b> Section in the <b>Manipulate Structure</b> page.</p> <br/>
+		
+    </td>
+    </tr>
+    </table>
+</body>
+</html>
+

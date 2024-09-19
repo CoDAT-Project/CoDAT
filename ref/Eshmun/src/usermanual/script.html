@@ -1,0 +1,163 @@
+<html>
+<head>
+	<title>Eshmun: User Manual</title>
+</head>
+<body>
+    <table width="750px">
+    <tr>
+    <td valign="top" width="200px" style="padding-left: 20px; padding-top: 30px; border-right: solid 1px;">
+        <h2>Navigation</h2>
+        <p>
+        <a href="graph.html">Manipulate Structure</a> <br/><br/>
+        <a href="concurrent.html">Concurrent Kripke Structure</a> <br/><br/>
+        <a href="skeletons.html">Synchronization Skeletons</a> <br/><br/>
+        <a href="io.html">Saving and Loading</a> <br/><br/>
+        <a href="export.html">Exporting</a> <br/><br/>
+        <a href="zoom.html">Search and Zoom</a> <br/><br/>
+        <a href="logic.html">Logic and Syntax</a> <br/><br/>
+        <a href="check.html">Model Check</a> <br/><br/>
+        <a href="repair.html">Model Repair</a> <br/><br/>
+        <a href="abstraction.html">Abstractions</a> <br/><br/>
+        <a href="coloring.html">Transition Coloring</a> <br/><br/>
+        <a href="script.html">Scripting</a> <br/><br/>
+        <a href="refinement.html">Refinement</a> <br/><br/>
+        <a href="unsat.html">Unsat Core</a> <br/><br/>
+        <!-- Add Section -->
+        </p>
+    </td>
+    <td valign="top" style="padding-left: 50px; padding-top: 30px;">
+        <h2>Scripting</h2>
+        
+        <p>
+        Eshmun contains a scripting language that is responsible for creating, replicating, and editing structures. The scripting language
+        can be used in two ways: through a terminal, or through files. You can write a script file and have it load into Eshmun, or you can
+        open a terminal through Eshmun and use it to interactively create/update structrues. Both options can be accessed through
+        Edit Menu -> Scripts.
+        </p> <br/>
+        		
+		<p>
+		<b>Variables and Ranges</b>
+		<p>
+		You can define variables using the <i>let</i> command. The language has three types: integer, boolean, and range.
+		</p>
+		<p>
+		Ranges can be defined using the triplet notation i:k:j, where i is the start of the range, j is the end (inclusive), and k is the increment,
+		i:j can be used as a shortcut for i:1:j .
+		</p>
+		<p>
+		Arithmetics over ranges is not allowed, numerical arithmetic obeys the standard precendances, the
+		supported operators are + (addition), - (subtraction), * (multiplication), / (division), % (modulos), ^ (raising to a power).
+		</p>
+		<p>
+		Boolean expressions can be constructed from the keywords "true" and "false", other variables, && (logical and), || (logical or), ! (negation).
+		The following operators can be used to compare integers: &gt;, &lt;, &gt;=, &lt;=, ==, and != .
+		</p>
+		</p> <br/>
+
+        <p>
+        <b>Structure Definition</b>
+        <p>
+        The core construct of the scripting language is structure definition, a structure is defining by providing a symbolic template that can
+        be instantiated afterwards (for as many times as needed). 
+        </p>
+        <p>
+        The definition of a template can be achieved through the "define" command: <br/>
+<pre><i>[@]define NAME &lt; SYMB1, SYMB2, .. &gt; {
+states:
+	NAME:LABELS[:START_STATE[:RETAIN]];
+	
+transitions:
+	FROM_NAME:TO_NAME[:RETAIN[:ACTION_NAMES(COMMA-SEPARATED)]];
+	
+specifications:
+	CTL FORMULA
+}</i></pre>
+        </p>
+        <p>
+        The ctl formula syntax is defined in the <a href="logic.html">Logic</a> section. The symbols defined in the header should be used in the structure definition and
+        specifications formula surronded by []. 
+        </p>
+        <p> 
+		Example: <br/>
+<pre><i>define tri&lt;i&gt; {
+states:
+	S0:N[i]:true:true;
+	S1:T[i];
+	S2:C[i];
+transitions:
+	S0:S1;
+	S1:S2:true;
+	S2:S3:false:action1,action2;
+specifications:
+	AF(C[i])
+}</i></pre>
+        </p>
+        <p><b>You should add @ to the keyword define if the structure being defined as not symmetric, i.e. if fliping the indices around yields a different structure.</b></p>
+        </p> <br/>
+        
+        <p>
+        <b>Instansiation</b>
+        <p>
+        You can instantiate structures using the "instance" command: <br/>
+<pre><i>instance NAME&lt;VALUE1, VALUE2, ...&gt;</i></pre>
+        </p>
+   		<p>
+   		The values provided will be used as values for the symbolic indices defined in the structure definition. The values can be integers, ranges, or a mixture. The cross-product of
+   		all the ranges and integers of the values will be used as a domain for instantiation. If the structure was set to be symmeteric, changes in order will not be considered.
+   		</p>
+   		</p> <br/>
+   		
+   		<p>
+   		<b>Loops and Conditionals</b>
+   		<p>
+   		The language contains "for", "while", "if-else" commands.
+   		</p>
+   		<p>
+   		The for loop iterates over a defined range. <br/>
+<pre><i>for i in y
+	BODY
+end</i></pre> <br>
+		i here is the iterator, and y is a range expression.
+   		</p>
+   		<p>
+   		The while loop iterates while a condition is true. <br/>
+<pre><i>while BOOLEAN_EXPRESSION
+	BODY
+end</i></pre>
+   		</p>
+   		<p>
+   		If-Else conditionals can be used for branching. <br/>
+<pre><i>if BOOLEAN_EXPRESSION
+	IF_BODY
+[else
+	ELSE BODY]
+end</i></pre> <br/>
+		The else clause can be omitted.
+   		</p>
+   		</p> <br/>
+   		
+   		<p>
+   		<b>Other Controls</b>
+   		<p>
+   		<pre><i>load PATH/TO/FILE</i></pre> Loads and executes a script file. <br/><br/>
+   		<pre><i>list</i></pre> Lists all instantiated structures. <br/><br/>
+   		<pre><i>del NAME1 NAME2 ...</i></pre> Removes the provided instantiated structures. <br/><br/>
+   		<pre><i>export PATH/TO/FILE</i></pre> Exports the structures that were instantiated to the given file. <br/><br/>
+   		<pre><i>extract</i></pre> If an instance of eshmun is already running, the command will extract a template definition 
+   		from each open structure in Eshmun. <br/><br/>
+   		<pre><i>start</i></pre> Launch Eshmun and load the instantiated structures into it.
+   		<pre><i>search QUERY</i></pre> Find all instantiated structures that contain the query in their headers. <br/><br/>
+   		</p>
+   		</p> <br/>
+   		
+   		<p>
+		<b>Comments</b>
+		<p>
+		Single line comments start with "//". No Multi-line comment syntax is provided.
+		</p>
+		</p> <br/>
+    </td>
+    </tr>
+    </table>
+</body>
+</html>

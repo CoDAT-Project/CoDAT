@@ -1,0 +1,14 @@
+n=4:
+
+AG( sb1 => A(sb1 U (sb1 & (cm0 | ab0)))) & 
+AG( sb2 => A(sb2 U (sb2 & (cm1 | ab1)))) & 
+AG( sb3 => A(sb3 U (sb3 & (cm2 | ab2)))) 
+
+
+======================================
+
+n=3:
+
+
+AG( sb1 => A(sb1 U (sb1 & (cm0 | ab0)))) & 
+AG( sb2 => A(sb2 U (sb2 & (cm1 | ab1)))) 

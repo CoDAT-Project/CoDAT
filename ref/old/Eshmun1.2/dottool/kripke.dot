@@ -1,0 +1,3 @@
+digraph kripkeModel  { 
+Q_q [fillcolor = green, style=filled, label="Q(q)"];
+}

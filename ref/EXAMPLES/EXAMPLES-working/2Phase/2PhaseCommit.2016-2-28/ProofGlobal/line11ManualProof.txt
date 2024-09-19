@@ -1,0 +1,41 @@
+
+AG(!cm0 | ! ab0) & AG(cm0 => AG(cm0)) & AG(!cm1 | ! ab1) &
+ AG(cm1 => AG(cm1)) & AG(!cm2 | ! ab2) & AG(cm2 => AG(cm2)) &           //7
+(cm1 --> A(sb2 U (sb2 & (cm1 | ab1))))                                                     //10
+=>
+(cm1 --> A(sb2 U (sb2 & cm1 ))) 
+
+
+==================================
+
+Will prove manually, using CTL+. We have
+
+   f --> g is A(Ff => Fg)    in CTL+
+
+Hence, proof obligation is
+
+AG(!cm0 | ! ab0) & AG(cm0 => AG(cm0)) & AG(!cm1 | ! ab1) &
+ AG(cm1 => AG(cm1)) & AG(!cm2 | ! ab2) & AG(cm2 => AG(cm2)) &           //7
+A(Fcm1 => FA(sb2 U (sb2 & (cm1 | ab1))))                                                     //10
+=>
+A(Fcm1 => FA(sb2 U (sb2 & cm1 )))
+
+
+
+====================================
+Manual proof (M refers to the ``main'' proof, given in the paper)
+
+1. AG(!cm1 | ! ab1)                                                  //M7
+2. AG(cm1 => AG(cm1))                                          //M7
+3. AG(ab1 => AG(ab1))                                            //M7'
+4. A(Fcm1 => FA(sb2 U (sb2 & (cm1 | ab1))))            //M10
+5. AG(cm1 => AG(!ab1))                                           //1, 2, monotonicity of AG
+6. AGA(cm1 => G(!ab1))                                               //5, convert to CTL+
+7. AG(ab1 => AG(!cm1))                                           //1, 3, monotonicity of AG
+8. AGA(ab1 => G(!cm1))                                               //6, convert to CTL+
+9. AGA(F(cm1) => !ab1)                                               //8, contrapositive
+10. A(F(cm1) => G(!ab1))                                             //6, 9, temporal reasoning
+11. A(Fcm1 => F(G(!ab1) & A(sb2 U (sb2 & (cm1 | ab1)))))           //4, 10, temporal reasoning
+12. A(Fcm1 => F(A(sb2 U (sb2 & cm1))))                    //11, temporal reasoning
+
+12 is same as cm1 --> A(sb2 U (sb2 & cm1 ))), so we are done.

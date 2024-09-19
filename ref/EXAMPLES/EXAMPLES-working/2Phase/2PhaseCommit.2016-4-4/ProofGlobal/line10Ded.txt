@@ -1,0 +1,147 @@
+Deduction of line 10 from lines 6,7, and 9
+
+deduction done manually, as follows (note line numbers are for old version)
+n=3:
+
+
+AG(!cm0 | ! ab0) & AG(cm0 => AG(cm0)) & AG(!cm1 | ! ab1) & AG(cm1 => AG(cm1)) & AG(!cm2 | ! ab2) & AG(cm2 => AG(cm2)) & //7
+(cm1 --> A(sb2 U (sb2 & (cm1 | ab1))))     //10
+=>
+(cm1 --> A(sb2 U (sb2 & cm1 ))) 
+
+
+
+
+AG(!cm0 | ! ab0) & AG(cm0 => AG(cm0)) & AG(!cm1 | ! ab1) & AG(cm1 => AG(cm1)) & AG(!cm2 | ! ab2) & AG(cm2 => AG(cm2)) & 
+A(  (cm1 => AF( A(sb2 U (sb2 & (cm1 | ab1))) ))  W A(sb2 U (sb2 & (cm1 | ab1))) )  
+=>
+A(  (cm1 => AF( A(sb2 U (sb2 & cm1)) ))  W A(sb2 U (sb2 & cm1 )) )  
+
+
+
+PROOF DECOMPOSITION
+============================================
+
+
+AG(cm1 => AG(cm1)) & AG(!cm1 | ! ab1) &
+(cm1 --> A(sb2 U (sb2 & (cm1 | ab1))))     
+=>
+(cm1 --> A(sb2 U (sb2 & cm1 ))) 
+
+
+
+AG(cm1 => AG(cm1)) &  AG(!cm1 | ! ab1) &
+A(  (cm1 => AF( A(sb2 U (sb2 & (cm1 | ab1))) ))  W A(sb2 U (sb2 & (cm1 | ab1))) )  
+=>
+A(  (cm1 => AF( A(sb2 U (sb2 & cm1)) ))  W A(sb2 U (sb2 & cm1 )) )  
+
+
+Too long. Infer it as follows.
+
+1. AG(cm1 => AG(cm1)) &  AG(!cm1 | ! ab1)     //assumption
+2. AG(cm1 => AG(cm1)) & AG(!cm1 | ! ab1) => AG(cm1 => AG(!ab1)) //shown valid by Eshmun
+3. AG(cm1 => AG(!ab1))  //1,2, MP
+4. (AG(f => g) & AG(f => h) => AG(f => (g & h))) //shown valid by Eshmun
+
+5. A(  (cm1 => AF( A(sb2 U (sb2 & (cm1 | ab1))) ))  W A(sb2 U (sb2 & (cm1 | ab1))) )  //assumption
+6. 
+6. A(  (cm1 => AG(!ab1) & AF( A(sb2 U (sb2 & (cm1 | ab1))) ))  W A(sb2
+U (sb2 & (cm1 | ab1))) )  //assumption
+
+
+=======================================
+ALT
+=========================================
+
+n=3:
+
+AG(!cm0 | ! ab0) & AG(cm0 => AG(cm0)) & AG(!cm1 | ! ab1) & 
+AG(cm1 => AG(cm1)) & AG(!cm2 | ! ab2) & AG(cm2 => AG(cm2)) & //7
+(cm0 --> (sb1 & (cm0 | ab0))) & (cm1 --> (sb2 & (cm1 | ab1))) //10
+=>
+(cm1 --> (sb2 & cm1)) 
+
+
+
+Proof Decomposition
+
+AG(!cm1 | ! ab1) & AG(cm1 => AG(cm1)) & AG(ab1 => AG(ab1)) & (cm1 --> (sb2 & (cm1 | ab1))) 
+=>
+(cm1 --> (sb2 & cm1)) 
+
+
+
+AG(!cm1 | ! ab1) & AG(cm1 => AG(cm1)) & AG(ab1 => AG(ab1)) & 
+A( (cm1 => AF(sb2 & (cm1 | ab1))) W (sb2 & (cm1 | ab1)) )
+=>
+A( (cm1 => AF(sb2 & cm1))  W (sb2 & cm1) ) 
+
+
+(AG(!cm1 | ! ab1) & AG(cm1 => AG(cm1)) & AG(ab1 => AG(ab1)) & A( (cm1 => AF(f)) W f ))
+=>
+A( (cm1 => AF(f)) W (f & cm1) )
+
+
+
+AG(!cm1 | ! ab1) & AG(cm1 => AG(cm1)) & AG(ab1 => AG(ab1)) =>
+!(cm1 --> ab1)
+
+AG(!cm1 | ! ab1) & AG(cm1 => AG(cm1)) & AG(ab1 => AG(ab1)) =>
+! ( A( (cm1 => AF(ab1)) W ab1) )
+
+AG(!cm1 | ! ab1) & AG(cm1 => AG(cm1)) & AG(ab1 => AG(ab1)) =>
+AG(cm1 => AG(!ab1)) 
+
+
+
+=============================
+(AG(!cm1 | ! ab1) & AG(cm1 => AG(cm1))) =>
+AG(cm1 => AG(!ab1)) 
+valid
+
+(AG(!cm1 | ! ab1) &  AG(ab1 => AG(ab1))) =>
+AG(ab1 => AG(!cm1)) 
+valid
+
+hence we have
+
+AG(!cm1 | ! ab1) & AG(cm1 => AG(cm1)) & AG(ab1 => AG(ab1)) =>
+AG(cm1 => AG(!ab1)) & AG(ab1 => AG(!cm1)) 
+valid
+
+
+( AG(cm1 => AG(!ab1)) & AG(ab1 => AG(!cm1)) ) =>
+! ( A( (cm1 => AF(ab1)) W ab1) )
+
+( AG(cm1 => AG(!ab1)) & AG(ab1 => AG(!cm1)) ) =>
+AG( cm1 => !AF(ab1) )
+valid
+
+
+
+A( (cm1 => AF(ab1)) W ab1 ) &  AG(cm1 => AG(!ab1))
+
+
+AG(!ab1) => !A(sb2 U (sb2 & (ab1))) shown valid by Eshmun
+AG(AG(!ab1) => !A(sb2 U (sb2 & (ab1)))) shown valid by Eshmun
+
+AG(cm1 => !A(sb2 U (sb2 & (ab1)))) by transitivity of =>
+
+
+
+
+
+hence
+
+(AG(!ab1) &  A(sb2 U (sb2 & (cm1 | ab1)))) => A(sb2 U (sb2 & cm1))
+shown valid by Eshmun
+
+also
+
+AG((AG(!ab1) &  A(sb2 U (sb2 & (cm1 | ab1)))) => A(sb2 U (sb2 & cm1)))
+
+AG(f => g) => (AG(cm1 => f) => AG(cm1 => g)) valid
+
+
+AG(A(sb2 U (sb2 & (ab1))) => !cm1) by contrapositive of above 
+AG(A(sb2 U (sb2 & (ab1))) => AG(!cm1)) CHECK

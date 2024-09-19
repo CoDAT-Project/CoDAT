@@ -1,0 +1,435 @@
+\documentclass[11pt]{article}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\input{a4.tex}
+\input{macros.tex}
+\input{code.tex}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\title{Concurrent Program Repair Via SAT Solving}
+\author{Ali Cherri, Kinan Dak El Bab\\
+Department of Computer Science\\
+American University of Beirut\\
+\texttt{ahc11@mail.aub.edu, kmd14@mail.aub.edu}
+}
+          
+
+\maketitle
+  
+\begin{abstract}
+\input{abstract}
+\end{abstract}
+
+\section{Preliminaries:}
+\subsection{What is CTL}
+Computation Tree Logic  is a system of rules and symbolism for representing, and reasoning about, propositions qualified in terms of time. It extends propositional logic with temporal modalities.
+\\
+\\
+Quantifiers over paths:
+\begin{itemize}
+  \item $\A\vphi$: All: $\vphi$ has to hold on all paths from the current state.
+  \item $\E\vphi$: Exists: there exists at least one path starting from the current state where $\vphi$ holds.
+\end{itemize}
+
+Path-specific quantifiers:
+\begin{itemize}
+  \item $\X\vphi$: Next: $\vphi$ has to hold at the next state.
+  \item $\G\vphi$: Globally: $\vphi$ has to hold on the entire subsequent path.
+  \item $\F\vphi$: Finally: $\vphi$ eventually has to hold.
+  \item $\vphi\U\psi$: Until: $\vphi$ has to hold until at some position $\psi$ holds. This implies that $\psi$ will be verified in the future.
+  \item $\vphi\W\psi$: Weak until: $\vphi$ has to hold until $\psi$ holds. The difference with U is that there is no guarantee that $\psi$ will ever be verified.
+  \item $\vphi\V\psi$: Release: as long as $\psi$ does not hold $\vphi$ holds. $\psi$ is required to hold at some point. 
+\end{itemize}
+
+CTL modalities can all be reduced to a minimal set \{EX, AV, EV \} combined with the basic boolean operators \{ $\wedge$, $\vee$, É \}
+
+\subsection{Kripke Structures}
+A Kripke structure M is defined as a 4-tuple M = ($\text{S}_0$, S, R, L, AP):
+\begin{itemize}
+    \item a set of initial states $\text{S}_0$ $\subseteq$ S
+  \item a finite set of states S.
+  \item a transition relation R $\subseteq$ S x S.
+  \item a labeling function L: S $\rightarrow 2^{AP}$ 
+  \item a set of atomic propositions(labels) AP.
+\end{itemize}
+
+\subsection{Model Checking}
+Model checking is a method for formally verifying finite-state concurrent systems. Specifications about the system are expressed as temporal logic formulas, and efficient symbolic algorithms are used to traverse the model defined by the system and check if the specification holds or not. In order to solve such a problem algorithmically, both the model of the system and the specification are formulated in some precise mathematical language: To this end, it is formulated as a task in logic, namely to check whether a given structure satisfies a given logical formula. The concept is general and applies to all kinds of logics and suitable structures. A simple model-checking problem is verifying whether a given formula in the propositional logic is satisfied by a given structure.
+
+
+\section{Model Repair}
+\subsection{Subtractive Repair Method}
+
+Given Kripke structure $M$ and a CTL formula $\spc$, we
+consider the problem of removing parts of $M$, resulting in a
+substructure $M'$ such that $M' \sat \spc$. 
+
+%Becasue $\vphi$ may state
+%just one of the properties required for $M$, we do not consider the
+%possibility of 
+
+\begin{definition}[Substructure]
+\label{defn:substructure}
+Given Kripke structures $M = \kdef$ and $M' = \kdefp$ we say that 
+$M'$ is a \emph{substructure} of $M$, denotedv$M' \sub M$, iff 
+$S'_0 \sub S_0$, $S' \sub S$, $R' \sub R$, and $L' = L \pj S'$.
+\end{definition}
+
+
+\begin{definition}[Repairable]
+\label{def:fixable}
+\label{def:repairable}
+\label{defn:repairable}
+Given Kripke structure $M = \kripkedef$ and CTL formula $\eta$.
+%% where $M,s_0 \not\sat \varphi$.??
+$M$ is \emph{repairable} with respect to $\eta$ if there exists a 
+Kripke structure $M' = \kripkeprimedef$ such that $M'$ is total, $M' \sub M$,
+and $M', S'_0 \sat \eta$.
+\end{definition}
+
+%Recall that a Kripke strucutre is total iff every state has at least one outgoing transition.
+
+\begin{definition}[Model Repair Problem]
+\label{defn:repairProblem}  
+For Kripke structure $M$ and CTL formula $\spc$, we use
+$\rprob{M}{\spc}$ for the corresponding repair problem.
+The decision version of repair problem $\rprob{M}{\spc}$ is to decide if $M$ is repairable \wrt $\spc$.
+The functional version of repair problem $\rprob{M}{\spc}$ is to return an $M'$ that satisfies
+\defn{repairable}, in the case that $M$ is repairable \wrt $\spc$.
+\end{definition}
+
+
+\begin{figure}[th]
+  \centering
+  \framebox{
+    \begin{minipage}{1.0\linewidth}
+    \begin{tabbing}
+    mmm\=mmm\=mmm\= \kill
+       \>\underline{$\repair(M,\eta)$}:\\[1ex]
+       \>model check $M, S_0 \sat \eta$;\\
+       \>\IF successful, \THEN \RETURN $M$\\
+       \>\ELSE\\
+       \>   \>compute $\repfor(M, \eta)$ as given in Section~\ref{sec:repair};\\
+       \>   \>submit $\repfor(M, \eta)$ to a sound and complete SAT-solver;\\
+       \>   \>\IF the SAT-solver returns ``not satisfiable'' \THEN\\
+       \>   \>   \> \RETURN ``failure''\\
+       \>   \>\ELSE\\
+       \>   \>   \>the solver returns a satisfying assignment $\Val$;\\
+       \>   \>   \>\RETURN $M' = \repmod(M,\Val)$
+    \end{tabbing}
+    \end{minipage}
+}
+
+  \caption{The model repair algorithm.}
+  \label{fig:model-repair}
+\end{figure}
+
+
+
+\section{Concurrent Model Repair}
+\subsection{Definition}
+We now consider several Kripke structures, which ``execute'' in parallel. As a boundary case,
+consider several Kripke structures $M_1, \ldots, M_n$ which do not interact, and which are to be repaired \wrt 
+CTL formulae $\eta_1,\ldots,\eta_n$, respectively. This can be effected ``in one shot'' 
+using the repair formula $\repair(M_1,\eta_1) \land \cdots \land \repair(M_n,\eta_n)$.
+This works since the repairs are independent, because the structures do not interact.
+So, what must be done to handle the case when structures do interact. 
+The details of this depend of course on the precise interaction mechanism, \eg shared variables or shared events
+
+
+We consider interaction via shared events, where the events are transitions of a Kripke structure. 
+Specifically, we consider the \emph{pairwise composition} method, to
+which we refer the reader for full details. We summarize the method as follows.
+The Kripke structures are \emph{multiprocess} Kripke structures.
+A multiprocess Kripke structure has its set $\AP$ of atomic porpositions partitioned into $\AP_1 \un
+\cdots \un \AP_K$, which are the atomic propositions of processes $P_1,\ldots,P_K$ respectively.
+Also, every transition is labeled with the index of a single process, which executes the
+transition. Only atomic propositions belonging to the executing process can be changed by a
+transition.
+
+A \emph{pair-structure} $M_{ij} = \prkdef{ij}$ is a multiprocess Kripke structure over two process indices, \eg
+$i, j$. Its set of atomic propositions is $\AP_i \un \AP_j$.  $M_{ij}$ defines the direct
+interaction between processes $P_i$ and $P_j$.  If $P_i$ interacts directly with a third process
+$P_k$, then a second pair structure, $M_{ik} = \prkdef{ik}$, over indices $i,k$, defines this interaction. Note
+that $M_{ij}$ and $M_{ik}$ have the atomic propositions $\AP_i$ in common, and so their parallel
+composition must obey the following consistency condition: in any reachable global state $s$, the
+corresponding (\ie projected) local states $s_{ij}$ of $M_{ij}$ and $s_{ik}$ of $M_{ik}$ must agree
+on all the atomic poropositions in $\AP_i$. Formally, in the parallel composition of $M_{iJ}$ and
+$M_{ik}$, a global state can be viewed as having the form $\tpl{s_{ij}, s_{ik}}$, where $s_{ij}$ is
+a state of $M_{ij}$, and $s_{ik}$ is a state of $M_{ik}$. Then, we require, 
+$\fa p \in \AP_i: p \in L_{ij}(s_{ij}) \mbox{ iff } p \in L_{ik}(s_{ik})$.
+
+
+The consistency condition requires that a transition by some process $P_i$ must be executed
+\emph{synchronously} in every Kripke structure that $P_i$ is represented in. A consequence of this
+is that $P_i$ must have the same ``local structure'' in all of its pair-structures: if, in $M_{ij}$,
+there exists some transition by $P_i$ that changes the local state of $P_i$ from $s_i$ to $t_i$,
+then there must also be a transition in $M_{ik}$,
+by $P_i$ that changes the local state of $P_i$ from $s_i$ to $t_i$.
+In general, there may be several such transitions in each of $M_{ij}$ and $M_{ik}$. 
+Let these transitions in $M_{ij}$ be $tr_{i1}^j, \ldots, tr_{in}^j$, and in $M_{ik}$ be 
+$tr_{i1}^k, \ldots, tr_{im}^k$.
+Then we conjoin 
+%
+      $$\OR_{1 \le x \le n} E(tr_{ix}^j)  \ev \OR_{1 \le y \le m} E(tr_{iy}^j)$$ 
+%
+to the repair formula, where $E(tr)$ is the repair proposition corresponding to transition $tr$.
+
+
+
+\section{Tool Review}
+The tool consists of five packages: Data Structures, Logical Expressions, Model Checker, Model Repairer and the GUI.
+\begin{itemize}
+  \item Data Structures consist of a structure, states and transitions. An abstraction is done on structures implementing basic structure components. A Kripke inherits from the abstract structure implementation. 
+  \item Logical Expressions consist of an abstract expression class which all logical expressions inherit from it. Furthermore, abstract subclasses are implemented to differentiate between CTL modalities predict logic, boolean literals and boolean variables.
+  \item Model Checker takes as input a Kripke structure $M = \kdef$, and a CTL formula $\phi$ and verifies if M satisfies $\phi$.
+  \item Mode Repairer takes as input a Kripke structure M and a CTL formulae $\phi$ and return a repaired model with respect to $\phi$.
+  \item SAT Solver: takes as input a CNF file and return a flag that specifies whether the CNF formulae is satisfiable or not. In case it is satisfiable it also returns the satisfying valuation.
+  \item GUI  implements a graphical interface between user and the other modules.
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=15cm,height=13cm,keepaspectratio]{modules}
+\caption{Tool main modules}
+\label{fig4:Modules}
+\end{figure}
+
+
+
+
+\section{Experimental Results}
+
+\begin{table}[th]
+\centering
+\begin{tabular}{c|c|cl}
+ \# Processes     & Old Tool        & Our Tool    \\ \hline  
+2                   & 93                  & 107             \\
+3                   & 1,210                   & 104              \\
+4                   & Out of memory    & 248            
+\end{tabular}
+\caption{Times (in Miliseconds) taken to repair mutual exclusion \wrt safety, single kripke strcuture}
+\label{table:benchMutex}
+\end{table}
+
+\begin{table}[th]
+\centering
+\begin{tabular}{c|c|cl}
+ \# Processes     & Old Tool        & Our Tool   \\  \hline  
+2                   & 67                  & 63             \\
+3                   & 460                   & 107              \\
+4                   & 1,105      & 164            
+\end{tabular}
+\caption{Times (in Miliseconds) taken to repair barrier  \wrt synchronisation, single kripke structure}
+\label{table:benchBarrier}
+\end{table}
+
+
+
+\section{Technical Details}
+
+\subsection{Algorithm for Generating the Repair Formula}
+The Algorithm is provided in pseudo code in the appendix on the last page.
+\clearpage
+\subsection{Constructing The Synchronisation Formula}
+\begin{lstlisting}
+/**
+ * Construct the structure formula, the formula that synchronizes transitions
+ * for each processes over all the structures.
+ * 
+ * <p>The formula necessitates that for a specific process, if all the transitions
+ * taking that process from one state to another were deleted in one Structure, they 
+ * must be also deleted in all of the structures.</p>
+ * 
+ * @return the Structure Formula for this MultiKripkeStructure.
+ */
+protected AbstractExpression getSynchFormula() {
+	HashMap<String, EquivalenceOperator> equiMap = new HashMap<String, EquivalenceOperator>();
+	Integer[] allProcesses = getParticipatingProcesses();
+	AndOperator andOp = new AndOperator();
+	for(int p : allProcesses) {
+		ArrayList<KripkeStructure> structures = new ArrayList<KripkeStructure>();
+		ArrayList<Integer> indices = new ArrayList<Integer>();
+		for(int i = 0; i < processes.size(); i++) {
+			int[] pairs = processes.get(i);
+			if(pairs[0] == p || pairs[1] == p) {
+				structures.add(kripkeList.get(i));
+				indices.add(pairs[0] == p ? 0 : 1);
+			}
+		}
+		
+		for(int i = 0; i < structures.size(); i++) {
+			KripkeStructure s = structures.get(i);
+			HashMap<String, ArrayList<KripkeTransition>> map = s.mapLabelToTransition(indices.get(i));
+			
+			for(String key : map.keySet()) {
+				if(equiMap.get(key) == null)
+					equiMap.put(key, new EquivalenceOperator());
+				
+				OrOperator orOp = new OrOperator();
+				for(KripkeTransition t : map.get(key)) {
+					orOp.or(new BooleanVariable(t.getVarName()));
+				}
+				
+				equiMap.get(key).equate(orOp);
+			}
+		}
+	}
+	
+	for(String key : equiMap.keySet()) {
+		andOp.and(equiMap.get(key));
+	}
+	
+	return andOp;
+}
+\end{lstlisting}
+
+\subsection{UML Diagram for CTL Logic API}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=15cm,height=13cm,keepaspectratio]{logic.jpg}
+\caption{Tool main modules}
+\label{fig4:Modules}
+\end{figure}
+
+
+\subsection{UML Diagram for the Models Data Structures}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=15cm,height=13cm,keepaspectratio]{structures.jpg}
+\caption{Tool main modules}
+\label{fig4:Modules}
+\end{figure}
+
+
+
+\begin{figure}[th]
+  \centering
+  \framebox{
+    \begin{minipage}{1.0\linewidth}
+    \begin{tabbing}
+    mmm\=mmm\=mmm\=mmm\=mmm\=mmm\=mmm\=mmm\=mmm \kill
+       \>\ul{\propagateA{$s,\xi$}}\\[1ex]
+
+       \>\IF $\xi \in \old{s}$ \THEN \`\cmnt $\xi$ has already been processed\\
+       \>   \>$\setDel{\new{s}}{\xi}$; \RETURN\\
+
+       \> \cmnt already checked for larger index\\
+       \>\IF $\xi = \A[\vphi \V \psi]^m$ and $\A[\vphi \V \psi]^{m'} \in \old{s}$ for some $m' \ge m$ \THEN \\
+       \>   \>$\setDel{\new{s}}{\xi}$; \RETURN\\
+
+       \>\cmnt already checked for larger index\\  %CHECK IF THIS IS CORRECT FOR NEGATED CASE
+       \>\IF $\xi = \E[\vphi \V \psi]^m$ and $\E[\vphi \V \psi]^{m'} \in \old{s}$ for some $m' \ge m$ \THEN \\
+       \>   \>$\new{s} := \new{s} - \xi$; \RETURN\\[1ex]
+
+
+
+       \>\CASE $\xi$:  \`\cmnt $\xi$ has not been processed \\%[1ex]
+
+       \>   \>$\xi = \neg \vphi$: \\
+       \>   \>   \>$\setInsS{\new{s}}{\vphi}$;
+                         $\conjoinA{\mstr{X_{s,\neg\vphi} \equiv \neg X_{s,\vphi}}}$;\\
+
+       \>   \>$\xi = \vphi \lor \psi$: \\
+       \>   \>   \>$\setInsS{\new{s}}{\vphi,\psi}$;
+                         $\conjoinA{\mstr{X_{s,\vphi \lor \psi} \equiv X_{s,\vphi} \lor X_{s,\psi}}}$;\\
+
+       \>   \>$\xi = \vphi \land \psi$: \\
+       \>   \>   \>$\setInsS{\new{s}}{\vphi,\psi}$;
+                         $\conjoinA{\mstr{X_{s,\vphi\land\psi} \equiv X_{s,\vphi} \land X_{s,\psi}}}$;\\
+
+       \>   \>$\xi = \AX \vphi$: \\
+       \>   \>   \>\FORALL $t \in R[s]: \setInsS{\new{t}}{\vphi}$ \ENDFOR;\\
+       \>   \>   \>$\conjoinA{\mstr{\AND_{t \in R[s]} (E_{s,t} \imp X_{t,\vphi})}}$\\
+
+       \>   \>$\xi = \EX \vphi$: \\
+       \>   \>   \>\FORALL $t \in R[s]: \setInsS{\new{t}}{\vphi}$ \ENDFOR;\\
+       \>   \>   \>$\conjoinA{\mstr{\OR_{t \in R[s]} (E_{s,t} \land X_{t,\vphi})}}$\\
+
+
+       \>   \>$\xi = \A[\vphi \V \psi]$: \\
+       \>   \>   \>$\setInsS{\new{s}}{\A[\vphi \V \psi]^n}$;\\
+       \>   \>   \>$\conjoinA{\mstr{X_{s,\A[\vphi \V \psi]} \equiv X^n_{s,\A[\vphi \V \psi]}}}$;\\
+
+       \>   \>$\xi = \A[\vphi \V \psi]^m$, $m \in \oneton$: \\
+       \>   \>   \>$\setInsS{\new{s}}{\vphi,\psi}$;\\
+       \>   \>   \>\FORALL $t \in R[s]: \setInsS{\new{t}}{\A[\vphi \V \psi]^{m-1}}$;\\
+       \>   \>   \>$\conjoinA{\mstr{X_{s,\A[\vphi \V \psi]}^m \equiv 
+                       X_{s,\psi} \land 
+                             (X_{s,\vphi}
+                              \lor 
+                             \AND_{t \in R[s]} (E_{s,t} \imp X_{t,\A[\vphi \V \psi]}^{m-1}))}}$\\
+
+       \>   \>$\xi = \A[\vphi \V \psi]^0$: \\
+       \>   \>   \>$\setInsS{\new{s}}{\psi}$;\\
+       \>   \>   \>$\conjoinA{\mstr{X_{s,\A[\vphi \V \psi]}^{0} \equiv X_{s,\psi}}}$\\
+
+
+       \>   \>$\xi = \E[\vphi \V \psi]$: \\
+       \>   \>   \>$\setInsS{\new{s}}{\E[\vphi \V \psi]^n}$;\\
+       \>   \>   \>$\conjoinA{\mstr{X_{s,\E[\vphi \V \psi]} \equiv X^n_{s,\E[\vphi \V \psi]}}}$;\\
+
+       \>   \>$\xi = \E[\vphi \V \psi]^m$, $m \in \oneton$: \\
+       \>   \>   \>$\setInsS{\new{s}}{\vphi,\psi}$;\\
+       \>   \>   \>\FORALL $t \in R[s]: \setInsS{\new{t}}{\A[\vphi \V \psi]^{m-1}}$;\\
+       \>   \>   \>$\conjoinA{\mstr{X_{s,\E[\vphi \V \psi]}^m \equiv 
+                       X_{s,\psi} \land 
+                             (X_{s,\vphi}
+                              \lor 
+                             \OR_{t \in R[s]} (E_{s,t} \land X_{t,\E[\vphi \V \psi]}^{m-1}))}}$\\
+
+       \>   \>$\xi = \E[\vphi \V \psi]^0$: \\
+       \>   \>   \>$\setInsS{\new{s}}{\psi}$;\\
+       \>   \>   \>$\conjoinA{\mstr{X_{s,\E[\vphi \V \psi]}^{0} \equiv X_{s,\psi}}}$\\
+
+
+       \>\ENDCASE;\\
+
+%       \>$\marked(s,\xi) \gt \true$\\
+       \>$\setDelS{\new{s}}{\xi}$; \`\cmnt remove $\xi$ from $\mathit{new}$ since it has been processed\\
+       \>$\setInsS{\old{s}}{\xi}$; \`\cmnt record that $\xi$ has been processed\\\\
+
+
+    \end{tabbing}
+    \end{minipage}
+}
+  \caption{Formula propagation.}
+  \label{fig:propagate}
+\end{figure}
+
+
+\section{Future Work}
+
+\begin{itemize}
+  \item Support more formal models for concurrent programs: I/O Automata, BIP.
+  \item Extend logic to include ATL(Alternating Temporal Logic), which is more expressive.
+  \item Develop an additive model repair algorithm that allows repair to be carried out by adding new states or transitions.
+\end{itemize}
+
+\end{document}
+

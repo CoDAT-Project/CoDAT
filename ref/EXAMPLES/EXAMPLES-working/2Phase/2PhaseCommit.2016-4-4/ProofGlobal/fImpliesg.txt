@@ -1,0 +1,29 @@
+
+
+f --> g: along every path, if f holds at some state, then g holds at
+some state (possibly before f)
+
+written in CTL as:
+
+A( (f => AF(g)) W g)   // where W is weak until
+
+also as
+
+!E[ !g U ( !(f => AFg) & !g )]
+
+by converting the W into a U
+
+================================
+
+to reduce size of formula submitted to decision procedure, we
+decompose proofs by using properties, 
+
+--> is transitive:
+
+f --> g & g --> h => f --> h
+
+( A( (f => AF(g)) W g) & A( (g => AF(h)) W h) )
+=>
+A( (f => AF(h)) W h)
+
+shown valid by Eshmun

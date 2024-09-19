@@ -1,0 +1,67 @@
+/* this is a sample representation of a 2 processes program trying to
+enter a critical section, with faulty actions */
+
+program {	
+    initial:	N1 & N2   					//formula for initial states
+    process 1 {  
+             
+        action a1 {                  				// a1 is an optional name
+
+           l_grd:	N1   					//local guards: Boolean formula over AP_i. No guards means True
+           g_grd:	N2 | C2 				//global guards: Boolean formulas over AP - AP_i and shared variables. No guards means True
+           l_eff:	N1,T1 := ff,tt				//local effects: multiple assignments; LHS are props from AP_i, RHS are general boolean expressions. Skip means do nothing
+           g_eff:	skip					//global effects: multiple assignments; LHS is a list of shared variables, RHS are expressions with values from domain of the shared variables. Skip means do nothing
+      	} 
+        action {  
+           l_grd:	N1 
+           g_grd:	T2
+           l_eff:	N1,T1:= ff,tt
+           g_eff:	x:=2;
+        } 
+       action {  
+           l_grd:	T1 
+           g_grd:	N2 | (T2 & x=1) 
+           l_eff:	T1,C1:= ff,tt
+           g_eff:	x:= null;
+        } 
+       action {  
+           l_grd:	C1 
+           g_grd:	N2 | T2 
+           l_eff:	C1,N1:= ff,tt
+           g_eff:	skip
+        }                  
+    }
+
+
+    process 2{   
+  
+       action {          
+           l_grd:	N2
+           g_grd:	N1 | C1 
+           l_eff:	N2,T2:= ff,tt
+           g_eff:	skip
+        } 
+       action {  
+           name:
+           l_grd:	N2
+           g_grd:	T1
+           l_eff:	N2,T2:= ff,tt
+           g_eff:	x:=2;
+        } 
+       action {  
+           l_grd:	T2 
+           g_grd:	N1 | (T1 & x=2)   
+           l_eff:	T2,C2 := ff,tt
+           g_eff:	x:=null
+        } 
+       action {  
+           l_grd:	C2 
+           g_grd:	N1 | T1 
+           l_eff:	C2,N2:= ff,tt
+           g_eff:	skip
+        } 
+                
+    }
+
+
+}

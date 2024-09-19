@@ -1,0 +1,12 @@
+P0 commits only if P4 submits
+
+cm0 --> sb4
+
+which in ctl is either 
+
+!( E( !sb4 U ( ( !( cm0 => ( AF( sb4 ) ) ) ) & !sb4 ) ) )
+
+or
+
+A( (cm0 => AF(sb4)) W sb4 )
+
